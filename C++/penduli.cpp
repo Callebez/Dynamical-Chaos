@@ -1,15 +1,13 @@
-#include <vector>
-#include <stdlib.h>
-#include <time.h>
-#include <cmath>
+#include "penduli.hpp"
 
 std::vector<double> classicalPendulum(std::vector<double> coord, double k)
 {
     std::vector<double> coord_dot (4,0);
-    coord_dot[0] = coord[3];
-    coord_dot[1] = coord[4];
+    coord_dot[0] = coord[2];
+    coord_dot[1] = coord[3];
     coord_dot[2] = -coord[0] - k*coord[0]*coord[1]*coord[1];
-    coord_dot[2] = -coord[1] - k*coord[1]*coord[0]*coord[0];
+    coord_dot[3] = -coord[1] - k*coord[1]*coord[0]*coord[0];
+    
     return coord_dot;
 }
 std::vector<double> quantumPenduli(std::vector<double> coord, double gamma)
@@ -17,10 +15,10 @@ std::vector<double> quantumPenduli(std::vector<double> coord, double gamma)
     std::vector<double> coord_dot (4,0);
     srand (time(NULL));
     double f = flutuation(coord[0],coord[1], gamma);
-    coord_dot[0] = coord[3];
-    coord_dot[1] = coord[4];
-    coord_dot[2] = - coord[3] -coord[0] - coord[0]*coord[1]*coord[1] + f*rand();
-    coord_dot[3] = -coord[1] - coord[1]*coord[0]*coord[0]+f*rand();
+    coord_dot[0] = coord[2];
+    coord_dot[1] = coord[3];
+    coord_dot[2] = - gamma*coord[2] -coord[0] - coord[0]*coord[1]*coord[1] + f*rand();
+    coord_dot[3] = -gamma*coord[3] - coord[1]- coord[1]*coord[0]*coord[0]+f*rand();
 
     return coord_dot; 
 }
