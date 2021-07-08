@@ -39,13 +39,13 @@ void completeRungeKuttaToFile(std::vector<double> (*function)(std::vector<double
     int iterations = (int)(abs(time_span[1]-time_span[0])/step);
     std::ofstream fileName;
     fileName.open("ouputrk4th.dat");
-    std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
-    for(int i = 0; i < iterations; i++)
+    //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
+    for(int j = 0; j < dimension; j++)
     {
-        auxVec = rungeKutta4thSquare(function, auxVec, param, step, dimension);
-        for(int j = 0; j < dimension; j++)
+        initialCond = rungeKutta4thSquare(function, initialCond, param, step, dimension);
+        for(int i = 0; i < iterations; i++)
         {
-            fileName << auxVec[j] <<"  ";
+            fileName << initialCond[j] <<"  ";
         }
         fileName<< std::endl;
     }

@@ -10,7 +10,7 @@
 int main()
 {
 
-    // std::vector<double> integrationAux = {6,1,0,1};
+    std::vector<double> integrationAux = {6,1,0,1};
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
     
@@ -18,20 +18,56 @@ int main()
     // auxVec = rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
     // completeRungeKuttaToFile(classicalPendulum, integrationAux, 1, step, 4, timespan);
 
-    std::vector<std::vector<double>> Matrix;  
-    std::vector<double> line (4, 0);
-    std::vector<double> line2 (4, 1);
-    Matrix.push_back(line);
-    Matrix.push_back(line2);
 
-    for(uint i = 0; i < Matrix.size(); i++)
+    // std::vector<double> param (10,0);
+    // std::vector<double>::iterator paramValue;
+    // for(int i = 0; i < 10; i++)
+    // {
+    //     param[i] = i+0.1;
+    // } 
+    // for(paramValue = param.begin(); paramValue<param.end(); paramValue++)
+    // {
+    //     std::cout<<"atual: "<<*paramValue<<"\n";
+    //     std::cout<<"seguinte: "<<*(paramValue+1)<<"\n";
+    // }
+
+    // std::vector<std::vector<double>> Matrix;  
+    // std::vector<double> line (4, 0);
+    // std::vector<double> line2 (4, 1);
+    // Matrix.push_back(line);
+    // Matrix.push_back(line2);
+    // Matrix[0].push_back(1);
+    // Matrix[1].push_back(0);
+    // for(uint i = 0; i < Matrix.size(); i++)
+    // {
+    //     for(uint j = 0; j < Matrix[0].size(); j++)
+    //     {
+    //         std::cout<<Matrix[i][j] <<" ";
+    //     }
+    //     std::cout<<std::endl;
+
+    // }
+
+    double range[2] = {0,2.0};
+    std::vector<std::vector<double>> biff = biffurcation(classicalPendulum,range,integrationAux, 0.0001,0.001,4);
+    // int iterations = (int)(abs(time_span[1]-time_span[0])/step);
+    std::ofstream biffdiagramA;
+    std::ofstream biffdiagramB;
+    biffdiagramA.open("biffurcationsA.dat");
+    biffdiagramB.open("biffurcationsB.dat");
+    //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
+    for(int j = 0; j < biff[0].size(); j++)
     {
-        for(uint j = 0; j < Matrix[0].size(); j++)
+      
+        for(int i = 0; i < 2; i++)
         {
-            std::cout<<Matrix[i][j] <<" ";
+            biffdiagramA << biff[i][j] <<"  ";
+            biffdiagramB << biff[2+i][j] <<"  ";
         }
-        std::cout<<std::endl;
-
+        biffdiagramA<< std::endl;
+        biffdiagramB<< std::endl;
     }
+    biffdiagramA.close();
+    biffdiagramB.close();
     return 0;    
 }

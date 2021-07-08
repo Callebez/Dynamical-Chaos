@@ -3,48 +3,56 @@
 
 std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std::vector<double>, double),
                                             double paramRange[2], std::vector<double> initialCond, 
-                                            double paramStep, double integrationStep, int dimension)
+                                            double paramStep, double integrationStep, int systemDimension)
 {
     int paramIterations = (int)(abs(paramRange[1]-paramRange[0])/paramStep);
-    std::vector<std::vector<double>> coords (2000+1);
-    std::vector<std::vector<double>> results;
-    std::vector<double> param (paramIterations,0);
-    std::vector<double>::iterator ptr;
-    std::vector<double> x_maxes;
-    std::vector<double> x_mins;
-    std::vector<double> param_maxes;
-    std::vector<double> param_mins;
-    for ( int i = 0 ; i < 2000+1 ; i++ ){coords[i].resize(dimension);}
+    int integrationIterations = (int)(20/integrationStep);
+    std::vector<std::vector<double>> biffurcation (4);
 
-   
+
+    std::vector<double> param (paramIterations,0);
+    std::vector<double>::iterator paramValue;
+    std::vector<double> xCoord (integrationIterations,0);
     for(int i = 0; i < paramIterations; i++)
     {
         param[i] = i*paramStep;
     } 
-    for(ptr = param.begin(); ptr < param.end(); ptr++)
+    
+    
+    for(paramValue = param.begin(); paramValue<param.end(); paramValue++)
     {
-        for(int i = 0; i < 2000; i++) // Transiente evolution 
+        //integration for transient state
+        for(int i = 0; i < integrationIterations; i++)
         {
-            coords[i+1] = rungeKutta4thSquare(function,coords[i], *ptr, integrationStep, dimension);
+            initialCond = rungeKutta4thSquare(function, initialCond, *paramValue, integrationStep,systemDimension);
+            xCoord[i] = initialCond[0];
         }
-        for(int i = 1; i < 2000-1; i++)
+        for(uint i = 1; i < integrationIterations-1; i++)
         {
-            if(coords[i-1][0] < coords[i][0]  && coords[i][0] > coords[i + 1][0])
+            if(xCoord[i-1]<xCoord[i] && xCoord[i]>xCoord[i+1])
             {
-                x_maxes.push_back(coords[i][0]);
-                param_maxes.push_back(*ptr);
+                biffurcation[1].push_back(xCoord[i]);
+                biffurcation[0].push_back(*paramValue);
+                // if(xCoord[i+1]<xCoord[i+2])
+                // {
+                //     biffurcation[2].push_back(xCoord[i+1]);
+                //     biffurcation[3].push_back(*(paramValue + 1));
+                //     i++;
+                // }
             }
-            if(coords[i-1][0] > coords[i][0]  && coords[i][0] < coords[i + 1][0])
+            else if(xCoord[i]<xCoord[i-1] && xCoord[i]< xCoord[i+1])
             {
-                x_mins.push_back(coords[i][0]);
-                param_mins.push_back(*ptr);
+                biffurcation[3].push_back(xCoord[i]);
+                biffurcation[2].push_back(*paramValue);
+                // if(xCoord[i+1]>xCoord[i+2])
+                // {
+                //     biffurcation[0].push_back(xCoord[i+1]);
+                //     biffurcation[1].push_back(*(paramValue + 1));
+                //     i++;
+                // }
             }
         }
-        coords[0] = coords[2001];
     }
-    results.push_back(x_maxes);
-    results.push_back(x_mins);
-    results.push_back(param_maxes);
-    results.push_back(param_mins);
-    return results;
+        return biffurcation;
 }
+    
