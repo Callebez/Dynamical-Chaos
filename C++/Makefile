@@ -1,9 +1,9 @@
 
 all:
-	g++ ./source/biffurcation.cpp ./source/main.cpp ./source/penduli.cpp ./source/rungekutta4thSquare.cpp -o main
+	gcc ./source/biffurcation.cpp ./source/main.cpp ./source/penduli.cpp ./source/rungekutta4thSquare.cpp -o main
 
 run:
-	g++ ./source/biffurcation.cpp ./source/main.cpp ./source/penduli.cpp ./source/rungekutta4thSquare.cpp -o main
+	gcc ./source/biffurcation.cpp ./source/main.cpp ./source/penduli.cpp ./source/rungekutta4thSquare.cpp -o main
 	./main
 clean:
 	find . -type f -executable -exec rm '{}' \;
