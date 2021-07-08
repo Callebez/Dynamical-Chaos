@@ -1,4 +1,4 @@
-#include "rungekutta4thSquare.hpp"
+#include "../include/rungekutta4thSquare.hpp"
 
 
 std::vector<double> rungeKutta4thSquare(std::vector<double> (*function)(std::vector<double>, double), 

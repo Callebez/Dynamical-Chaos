@@ -1,4 +1,4 @@
-#include "biffurcation.hpp"
+#include "../include/biffurcation.hpp"
 
 
 std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std::vector<double>, double),

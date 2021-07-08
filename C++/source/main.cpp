@@ -3,10 +3,10 @@
 #include<iterator> // for iterators
 #include<vector> // for vectors
 #include<cmath>
-#include "gnuplot-iostream.h"
-#include "rungekutta4thSquare.hpp"
-#include "biffurcation.hpp"
-#include "penduli.hpp"
+#include "../include/gnuplot-iostream.h"
+#include "../include/rungekutta4thSquare.hpp"
+#include "../include/biffurcation.hpp"
+#include "../include/penduli.hpp"
 
 int main()
 {
