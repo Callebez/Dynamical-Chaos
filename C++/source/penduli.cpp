@@ -1,4 +1,4 @@
-#include "penduli.hpp"
+#include "../include/penduli.hpp"
 
 std::vector<double> classicalPendulum(std::vector<double> coord, double k)
 {
