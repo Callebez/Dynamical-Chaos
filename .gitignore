@@ -1,0 +1,6 @@
+source/*.o
+include/*.o
+*.dat
+
+.vscode
+C++/.vscode
