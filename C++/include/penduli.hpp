@@ -1,6 +1,6 @@
 #include <vector>
-#include <stdlib.h>
-#include <time.h>
+#include <cstdlib>
+#include<ctime>
 #include <cmath>
 
 #ifndef PENDULI_H

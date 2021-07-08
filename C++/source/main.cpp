@@ -5,9 +5,18 @@
 #include<cmath>
 //#include "../include/gnuplot-iostream.h"
 #include "../include/rungekutta4thSquare.hpp"
-#include "../include/biffurcation.hpp"
+// #include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
-
+// std::vector<double> classicalPendulum(std::vector<double> coord, double k)
+// {
+//     std::vector<double> coord_dot (4,0);
+//     coord_dot[0] = coord[2];
+//     coord_dot[1] = coord[3];
+//     coord_dot[2] = -coord[0] - k*coord[0]*coord[1]*coord[1];
+//     coord_dot[3] = -coord[1] - k*coord[1]*coord[0]*coord[0];
+    
+//     return coord_dot;
+// }
 int main()
 {
 

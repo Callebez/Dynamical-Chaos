@@ -1,7 +1,7 @@
 #ifndef BIFFUCATION_H
 #define DIFFURCATION_H
 #include<cmath>
-#include "../source/rungekutta4thSquare.cpp"
+#include "../include/rungekutta4thSquare.hpp"
 
 
 std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std::vector<double>, double),
