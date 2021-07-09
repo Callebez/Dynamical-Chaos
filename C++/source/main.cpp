@@ -69,7 +69,7 @@ int main()
     biffdiagramA.open("biffurcationsC.dat");
     biffdiagramB.open("biffurcationsD.dat");
     //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
-    for(int j = 0; j < biff[0].size(); j++)
+    for(int j = 0; j < (int)biff[0].size(); j++)
     {
       
         for(int i = 0; i < 2; i++)
