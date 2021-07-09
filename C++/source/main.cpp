@@ -31,30 +31,43 @@ int main()
     //     std::cout<<"seguinte: "<<*(paramValue+1)<<"\n";
     // }
 
-    // std::vector<std::vector<double>> Matrix;  
-    // std::vector<double> line (4, 0);
-    // std::vector<double> line2 (4, 1);
-    // Matrix.push_back(line);
-    // Matrix.push_back(line2);
-    // Matrix[0].push_back(1);
-    // Matrix[1].push_back(0);
-    // for(uint i = 0; i < Matrix.size(); i++)
-    // {
-    //     for(uint j = 0; j < Matrix[0].size(); j++)
-    //     {
-    //         std::cout<<Matrix[i][j] <<" ";
-    //     }
-    //     std::cout<<std::endl;
-
-    // }
-
-    double range[2] = {0,2.0};
-    std::vector<std::vector<double>> biff = biffurcation(classicalPendulum,range,integrationAux, 0.0001,0.001,4);
+//     std::vector<std::vector<double>> Matrix;  
+//     std::vector<double> line (4, 0);
+//     std::vector<double> line2 (4, 1);
+//     std::vector<double> aux;
+//     double x;
+//     Matrix.push_back(line);
+//     Matrix.push_back(line2);
+//     Matrix[0].push_back(1);
+//     Matrix[1].push_back(0);
+//     for(uint i = 0; i < Matrix.size(); i++)
+//     {
+//         for(uint j = 0; j < Matrix[0].size(); j++)
+//         {
+//             std::cout<<Matrix[i][j] <<" ";
+//         }
+//         std::cout<<std::endl;
+//     }
+    
+//     aux = Matrix[1];
+//     Matrix.clear();
+//     Matrix.push_back(aux);
+// std::cout<<std::endl;
+//     for(uint i = 0; i < Matrix.size(); i++)
+//     {
+//         for(uint j = 0; j < Matrix[0].size(); j++)
+//         {
+//             std::cout<<Matrix[i][j] <<" ";
+//         }
+//         std::cout<<std::endl;
+//     }
+    double range[2] = {0.0 , 2.0};
+    std::vector<std::vector<double>> biff = biffurcation(classicalPendulum,range,integrationAux, 0.001,0.1,4);
     // int iterations = (int)(abs(time_span[1]-time_span[0])/step);
     std::ofstream biffdiagramA;
     std::ofstream biffdiagramB;
-    biffdiagramA.open("biffurcationsA.dat");
-    biffdiagramB.open("biffurcationsB.dat");
+    biffdiagramA.open("biffurcationsC.dat");
+    biffdiagramB.open("biffurcationsD.dat");
     //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
     for(int j = 0; j < biff[0].size(); j++)
     {

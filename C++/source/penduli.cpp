@@ -2,7 +2,7 @@
 
 std::vector<double> classicalPendulum(std::vector<double> coord, double k)
 {
-    std::vector<double> coord_dot (4,0);
+    std::vector<double> coord_dot (4);
     coord_dot[0] = coord[2];
     coord_dot[1] = coord[3];
     coord_dot[2] = -coord[0] - k*coord[0]*coord[1]*coord[1];

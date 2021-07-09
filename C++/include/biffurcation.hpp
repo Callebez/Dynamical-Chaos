@@ -1,6 +1,7 @@
 #ifndef BIFFUCATION_H
 #define DIFFURCATION_H
 #include<cmath>
+#include<iostream>
 #include "../include/rungekutta4thSquare.hpp"
 
 

@@ -65,8 +65,8 @@ def rk4(function, x,y,z,w,k,step):
     w = w + (1/6) * step * (k1[3]+2*k2[3]+2*k3[3]+k4[3])
     return x,y,z,w
 
-dr = 0.00001  # parameter step size
-r = np.arange(0, 0.01, dr)  # parameter range
+dr = 0.0001  # parameter step size
+r = np.arange(0, 2, dr)  # parameter range
 dt = 0.01  # time step
 t = np.arange(0, 10, dt)  # time range
 
@@ -93,7 +93,7 @@ for R in r:
     #print(f"{R=:.2f}")
     for i in range(len(t)):
         # approximate numerical solutions to system
-       xs[i + 1], ys[i + 1], pxs[i + 1],pys[i + 1] = rk4(quantumPendulum,xs[i], ys[i], pxs[i], pys[i], R, dt)
+       xs[i + 1], ys[i + 1], pxs[i + 1],pys[i + 1] = rk4(classicalPendulum,xs[i], ys[i], pxs[i], pys[i], R, dt)
        
     # calculate and save the peak values of the z solution
     for i in range(1, len(xs) - 1):
