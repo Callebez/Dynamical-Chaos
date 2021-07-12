@@ -7,6 +7,7 @@
 // #include "../include/rungekutta4thSquare.hpp"
 #include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
+#include "../include/LyapExp.hpp"
 int main()
 {
 
@@ -66,8 +67,8 @@ int main()
     // int iterations = (int)(abs(time_span[1]-time_span[0])/step);
     std::ofstream biffdiagramA;
     std::ofstream biffdiagramB;
-    biffdiagramA.open("biffurcationsC.dat");
-    biffdiagramB.open("biffurcationsD.dat");
+    biffdiagramA.open("../biffurcationsC.dat");
+    biffdiagramB.open("../biffurcationsD.dat");
     //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
     for(int j = 0; j < (int)biff[0].size(); j++)
     {
