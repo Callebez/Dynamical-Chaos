@@ -23,6 +23,7 @@ int main()
 {
 
     std::vector<double> integrationAux = {1,1,1};
+
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
     
@@ -74,56 +75,76 @@ int main()
 //         std::cout<<std::endl;
 //     }
     
-    // std::vector<double> param (400,0);
-    // std::vector<double>::iterator paramValue;
+    std::vector<double> param (20,0);
+    std::vector<double>::iterator paramValue;
 
-    // for(int i = 0; i < 400; i++)
-    // {
-    //     param[i] = i*0.5;
-    //     // std::cout<<param[i]<<" \n";
-    // } 
-    // double time_span[2] = {0.0,50.0};
-    // int iterations = (int)(fabs(time_span[1]-time_span[0])/0.01);
-    // std::ofstream fileName;
-    // fileName.open("outputrk4thnew.dat");
+    for(int i = 0; i < 20; i++)
+    {
+        param[i] = i*0.1;
+        // std::cout<<param[i]<<" \n";
+    } 
+    double time_span[2] = {0.0,30.0};
+    double step = 0.0001;
+    int iterations = (int)(fabs(time_span[1]-time_span[0])/step);
+    std::vector<double>time(iterations);
+    for(int i = 0; i < iterations; i++)
+    {   
+        time[i] = i*step;
 
-<<<<<<< HEAD
-    //  for(paramValue = param.begin(); paramValue<param.end(); paramValue++)
-    // {
-    //     integrationAux = {1,1,1};
-    //     for(int j = 0; j < iterations; j++)
-    //     {
-    //         integrationAux = rungeKutta4thSquare(lorenz, integrationAux, *paramValue, 0.01, 3);
-    //         for(int i = 0; i < 3; i++)
-    //         {
-    //             fileName << integrationAux[i] <<"  ";
-    //         }
-    //         fileName<< std::endl;
-    //     }
-    //     fileName<<"\n" <<std::endl;
-    // }
-=======
+    }
+    std::ofstream Xt;
+    std::ofstream Yt;
+    std::ofstream Pxt;
+    std::ofstream Pyt;
+    Xt.open("classicalXt.dat");
+    Yt.open("classicalYt.dat");
+    Pxt.open("classicalPxt.dat");
+    Pyt.open("classicalPyt.dat");
+
      for(paramValue = param.begin(); paramValue<param.end(); paramValue++)
     {
-        integrationAux = {1,1,1};
+        integrationAux = {6,0,1,1};
         for(int j = 0; j < iterations; j++)
         {
-            integrationAux = rungeKutta4thSquare(lorenz, integrationAux, *paramValue, 0.001, 3);
-            for(int i = 0; i < 3; i++)
-            {
-                fileName << integrationAux[i] <<"  ";
-            }
-            fileName<< std::endl;
+            integrationAux = rungeKutta4thSquare(classicalPendulum, integrationAux, *paramValue, step, 4);
+            // for(int i = 0; i < 4; i++)
+            // {
+            Xt << time[j]<<"  ";
+            Xt << integrationAux[0] <<"  ";
+            
+            Pxt << time[j]<<"  ";
+            Pxt << integrationAux[1] <<"  ";
+
+            Yt << time[j]<<"  ";
+            Yt << integrationAux[2] <<"  ";
+            
+            Pyt << time[j]<<"  ";
+            Pyt << integrationAux[3] <<"  ";
+            // }
+            Xt<< std::endl;
+            Yt<< std::endl;
+            Pxt<< std::endl;
+            Pyt<< std::endl;
         }
-        fileName<<"\n" <<std::endl;
+        Xt<<"\n" <<std::endl;
+        Yt<<"\n" <<std::endl;
+        Pxt<<"\n" <<std::endl;
+        Pyt<<"\n" <<std::endl;
     }
->>>>>>> 7a9036bb113cc68eb55038a74ce1996220adda83
+    plotAnimate2D("classicalXt.gif", "classicalXt.dat", 30);
+    plotAnimate2D("classicalYt.gif", "classicalYt.dat", 30);
+    plotAnimate2D("classicalPxt.gif", "classicalPxt.dat", 30);
+    plotAnimate2D("classicalPyt.gif", "classicalPyt.dat", 30);
   
 
-    // fileName.close();
 
-    plotAnimate("lorenz.gif", "outputrk4thnew.dat", 10);
-    std::cout<<"success!";
+    Xt.close();
+    Yt.close();
+    Pxt.close();
+    Pyt.close();
+
+    // plotAnimate("lorenz.gif", "outputrk4thnew.dat", 10);
+    // std::cout<<"success!";
    //completeRungeKuttaToFile(lorenz, {1,1,1}, 28, 0.01, 3, time_span);
     // double range[2] = {0 , 20};
     // std::vector<std::vector<double>> biff = biffurcation(classicalPendulum,range,integrationAux, 0.01,0.01,4);
