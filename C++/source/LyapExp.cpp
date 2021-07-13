@@ -1,6 +1,4 @@
-#include"../include/LyapExp.hpp"
-#include"../include/rungekutta4thSquare.hpp"
-#include"../include/penduli.hpp"
+#include"../include/biffurcation.hpp"
 #include<cmath>
 #include<iostream>
 
@@ -60,20 +58,7 @@ for(int l=0;l<iterations;l++)
                                     <<"    "<<exponents[1]/coord[l+1][0]
                                     <<"    "<<exponents[2]/coord[l+1][0]
                                     <<"    "<<exponents[3]/coord[l+1][0]<<std::endl;
-            
-
-
-
-
         }
     }   
-
-
-
-
-
-
-
-
     return exponents;
 }

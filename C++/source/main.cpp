@@ -4,8 +4,8 @@
 #include<vector> // for vectors
 #include<cmath>
 // #include "../include/gnuplot-iostream.h"
-// #include "../include/rungekutta4thSquare.hpp"
-#include "../include/biffurcation.hpp"
+ //#include "../include/rungekutta4thSquare.hpp"
+//#include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
 #include "../include/LyapExp.hpp"
 int main()
