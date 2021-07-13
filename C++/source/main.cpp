@@ -87,6 +87,7 @@ int main()
     // std::ofstream fileName;
     // fileName.open("outputrk4thnew.dat");
 
+<<<<<<< HEAD
     //  for(paramValue = param.begin(); paramValue<param.end(); paramValue++)
     // {
     //     integrationAux = {1,1,1};
@@ -101,6 +102,22 @@ int main()
     //     }
     //     fileName<<"\n" <<std::endl;
     // }
+=======
+     for(paramValue = param.begin(); paramValue<param.end(); paramValue++)
+    {
+        integrationAux = {1,1,1};
+        for(int j = 0; j < iterations; j++)
+        {
+            integrationAux = rungeKutta4thSquare(lorenz, integrationAux, *paramValue, 0.001, 3);
+            for(int i = 0; i < 3; i++)
+            {
+                fileName << integrationAux[i] <<"  ";
+            }
+            fileName<< std::endl;
+        }
+        fileName<<"\n" <<std::endl;
+    }
+>>>>>>> 7a9036bb113cc68eb55038a74ce1996220adda83
   
 
     // fileName.close();
