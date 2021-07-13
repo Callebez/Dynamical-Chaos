@@ -67,8 +67,8 @@ int main()
     // int iterations = (int)(abs(time_span[1]-time_span[0])/step);
     std::ofstream biffdiagramA;
     std::ofstream biffdiagramB;
-    biffdiagramA.open("../DAT/biffurcationsC.dat");
-    biffdiagramB.open("../DAT/biffurcationsD.dat");
+    biffdiagramA.open("DAT/biffurcationsC.dat");
+    biffdiagramB.open("DAT/biffurcationsD.dat");
     //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
     for(int j = 0; j < (int)biff[0].size(); j++)
     {
@@ -84,9 +84,9 @@ int main()
     biffdiagramA.close();
     biffdiagramB.close();
 
-    double step = 1e-3;
+    /*double step = 1e-3;
     std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
     std::vector<double> Exponents=LyapunovExponents();
-    
+    */
     return 0;    
 }
