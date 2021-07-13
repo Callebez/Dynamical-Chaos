@@ -12,6 +12,7 @@ int main()
 {
 
     std::vector<double> integrationAux = {6,1,0,1};
+    /*
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
     
@@ -82,11 +83,11 @@ int main()
         biffdiagramB<< std::endl;
     }
     biffdiagramA.close();
-    biffdiagramB.close();
-
-    /*double step = 1e-3;
+    biffdiagramB.close();*/
+    int iterations=1e4;
+    double step = 1e-3;
     std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
-    std::vector<double> Exponents=LyapunovExponents();
-    */
+    std::vector<double> Exponents=LyapunovExponents(classicalPendulum,integrationAux,step,iterations);
+    
     return 0;    
 }

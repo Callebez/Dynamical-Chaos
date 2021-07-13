@@ -5,7 +5,7 @@
 #include<iostream>
 
 std::vector<double> LyapunovExponents (std::vector<double>(*function)(std::vector<double>,double)
-                                      ,std::vector<double>initcoord, int step, int iterations)
+                                      ,std::vector<double>initcoord, double step, int iterations)
 {
     int NumEq=4; 
     std::vector<double> exponents(NumEq,0);
@@ -56,20 +56,13 @@ for(int l=0;l<iterations;l++)
             {
                 exponents[j]=+log(norm[j])/log(2.0);
             }
+            std::cout<<coord[l+1][0]<<"    "<<exponents[0]/coord[l+1][0]
+                                    <<"    "<<exponents[1]/coord[l+1][0]
+                                    <<"    "<<exponents[2]/coord[l+1][0]
+                                    <<"    "<<exponents[3]/coord[l+1][0]<<std::endl;
             
-            
-            /*Mensagem para Callebe:
-            No programa do cálculo dos expoentes de Lyapunov em Fortran
-            Eles dividem pelo logaritmo neperiano de 2.
-            Mas, ao que eu entendo esse valor deveria ser calculado
-            a cada vez que este programa for rodado.
-            Não sei se minha dúvida é boa, ou é somente
-            meu mal entendimento.*/
 
-            //Falta realizar o Loop com label 100 no programa original de Fortran
-            //Junto com a invocação da função de integração  
 
-            //std::cout<<exponents[];
 
 
         }
