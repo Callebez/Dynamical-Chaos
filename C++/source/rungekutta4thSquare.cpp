@@ -37,12 +37,12 @@ void completeRungeKuttaToFile(std::vector<double> (*function)(std::vector<double
     std::ofstream fileName;
     fileName.open("ouputrk4th.dat");
     //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
-    for(int j = 0; j < dimension; j++)
+    for(int j = 0; j < iterations; j++)
     {
         initialCond = rungeKutta4thSquare(function, initialCond, param, step, dimension);
-        for(int i = 0; i < iterations; i++)
+        for(int i = 0; i < dimension; i++)
         {
-            fileName << initialCond[j] <<"  ";
+            fileName << initialCond[i] <<"  ";
         }
         fileName<< std::endl;
     }

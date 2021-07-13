@@ -7,7 +7,7 @@ std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std
 {
 
     int paramIterations = (int)((fabs(paramRange[1]-paramRange[0])/paramStep));
-    int integrationIterations = (int)((double)10.0/0.0001);
+    int integrationIterations = (int)((double)10.0/integrationStep);
     std::vector<std::vector<double>> biffurcation (4);
     std::vector<std::vector<double>> auxCoord(integrationIterations);
     auxCoord[0]= initialCond;
@@ -19,6 +19,7 @@ std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std
     for(int i = 0; i < paramIterations; i++)
     {
         param[i] = i*paramStep;
+        // std::cout<<param[i]<<" \n";
     } 
     
     
@@ -28,8 +29,8 @@ std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std
         for(int i = 0; i < integrationIterations-1; i++)
         {
             // std::cout<<auxCoord[i][0];
-            auxCoord[i+1] = rungeKutta4thSquare(function, auxCoord[i], *paramValue, 0.00001,systemDimension);
-            xCoord[i] = auxCoord[i][0];
+            auxCoord[i+1] = rungeKutta4thSquare(function, auxCoord[i], *paramValue, integrationStep,systemDimension);
+            xCoord[i] = auxCoord[i][2];
            // std::cout<<xCoord[i]<<"\n";
         }
         // for(uint i = 0; i < auxCoord.size(); i++)
@@ -54,29 +55,29 @@ std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std
         //     }
         //     std::cout<<"\n";
         // }
-        for(int i = 1; i < integrationIterations-1; i++)
+        for(int i = 1; i < integrationIterations-2; i++)
         {
-            if(xCoord[i-1]<xCoord[i] && xCoord[i]>xCoord[i+1])
+            if( (xCoord[i-1]<xCoord[i]) & (xCoord[i]>xCoord[i+1]))
             {
                 biffurcation[1].push_back(xCoord[i]);
                 biffurcation[0].push_back((double)(*paramValue));
-                // if(xCoord[i+1]<xCoord[i+2])
-                // {
-                //     biffurcation[2].push_back(xCoord[i+1]);
-                //     biffurcation[3].push_back((double)(*(paramValue + 1)));
-                //     i++;
-                // }
+                if(xCoord[i+1]<xCoord[i+2])
+                {
+                    biffurcation[2].push_back(xCoord[i+1]);
+                    biffurcation[3].push_back((double)(*(paramValue + 1)));
+                    i++;
+                }
             }
-            else if(xCoord[i]<xCoord[i-1] && xCoord[i]< xCoord[i+1])
+            else if((xCoord[i]<xCoord[i-1]) & (xCoord[i]< xCoord[i+1]))
             {
                 biffurcation[3].push_back(xCoord[i]);
                 biffurcation[2].push_back((double)(*paramValue));
-                // if(xCoord[i+1]>xCoord[i+2])
-                // {
-                //     biffurcation[0].push_back(xCoord[i+1]);
-                //     biffurcation[1].push_back((double)(*(paramValue + 1)));
-                //     i++;
-                // }
+                if(xCoord[i+1]>xCoord[i+2])
+                {
+                    biffurcation[0].push_back(xCoord[i+1]);
+                    biffurcation[1].push_back((double)(*(paramValue + 1)));
+                    i++;
+                }
             }
         }
         xCoord.clear();
