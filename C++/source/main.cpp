@@ -89,7 +89,7 @@ int main()
         integrationAux = {1,1,1};
         for(int j = 0; j < iterations; j++)
         {
-            integrationAux = rungeKutta4thSquare(lorenz, integrationAux, *paramValue, 0.01, 3);
+            integrationAux = rungeKutta4thSquare(lorenz, integrationAux, *paramValue, 0.001, 3);
             for(int i = 0; i < 3; i++)
             {
                 fileName << integrationAux[i] <<"  ";
