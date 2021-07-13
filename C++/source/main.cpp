@@ -71,16 +71,16 @@ int main()
 //         std::cout<<std::endl;
 //     }
     
-    std::vector<double> param (200,0);
+    std::vector<double> param (400,0);
     std::vector<double>::iterator paramValue;
 
-    for(int i = 0; i < 200; i++)
+    for(int i = 0; i < 400; i++)
     {
         param[i] = i*0.5;
         // std::cout<<param[i]<<" \n";
     } 
     double time_span[2] = {0.0,50.0};
-    int iterations = (int)(fabs(time_span[1]-time_span[0])/0.01);
+    int iterations = (int)(fabs(time_span[1]-time_span[0])/0.001);
     std::ofstream fileName;
     fileName.open("outputrk4thnew.dat");
 
