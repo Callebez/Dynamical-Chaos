@@ -8,10 +8,21 @@
 //#include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
 #include "../include/LyapExp.hpp"
+std::vector<double> lorenz(std::vector<double> coord, double rho)
+{
+    std::vector<double> coord_dot(3,0);
+    coord_dot[0] = 10.0*(coord[1]- coord[0]);
+    coord_dot[1] = coord[0]*rho- coord[0]*coord[2] - coord[1];
+    coord_dot[2] = coord[0]*coord[1] - 8.0/3.0*coord[2];
+    return coord_dot;
+    
+}
 int main()
 {
 
     std::vector<double> integrationAux = {6,1,0,1};
+    std::vector<double> help = {10,1,0};
+
     /*
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
@@ -87,7 +98,7 @@ int main()
     int iterations=1e4;
     double step = 1e-3;
     //std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
-    std::vector<double> Exponents=LyapunovExponents(classicalPendulum,integrationAux,step,iterations);
+    std::vector<double> Exponents=LyapunovExponents(lorenz,help,step,iterations);
     std::cout<<std::endl<<"finish"<<std::endl;
     return 0;    
 }
