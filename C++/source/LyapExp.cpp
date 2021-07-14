@@ -47,10 +47,10 @@ std::vector<double> LyapunovExponents (std::vector<double>(*function)(std::vecto
         {
             exponents[j]=+log(norm[j])/log(2.0);
         }
-        std::cout<<coord[l][0]<<"    "<<exponents[0]
-                              <<"    "<<exponents[1]
-                              <<"    "<<exponents[2]
-                              <<"    "<<exponents[3]<<std::endl;
+        std::cout<<coord[l][0]<<"    "<<exponents[0]/coord[l][0]
+                              <<"    "<<exponents[1]/coord[l][0]
+                              <<"    "<<exponents[2]/coord[l][0]
+                              <<"    "<<exponents[3]/coord[l][0]<<std::endl;
     }
     /*for(int l=0;l<10;l++)
     {
