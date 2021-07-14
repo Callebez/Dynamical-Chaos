@@ -98,6 +98,7 @@ int main()
     int iterations=1e4;
     double step = 1e-3;
     //std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
+    std::cout<<std::endl;
     std::vector<double> Exponents=LyapunovExponents(lorenz,help,step,iterations);
     std::cout<<std::endl<<"finish"<<std::endl;
     return 0;    

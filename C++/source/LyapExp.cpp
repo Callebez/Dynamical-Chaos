@@ -1,4 +1,5 @@
 #include"../include/biffurcation.hpp"
+#include"../include/LyapExp.hpp"
 #include<cmath>
 #include<iostream>
 
@@ -52,28 +53,33 @@ std::vector<double> LyapunovExponents (std::vector<double>(*function)(std::vecto
         for(int j=0;j<NumEq;j++)
         {
             exponents[j]=+log(norm[j])/log(2.0);
+            exponents[j]/=coord[l][0];
         }
-        std::cout<<coord[l][0]<<"    "<<exponents[0]/coord[l][0]
-                              <<"    "<<exponents[1]/coord[l][0]
-                              <<"    "<<exponents[2]/coord[l][0]
-                              <<"    "<<exponents[3]/coord[l][0]<<std::endl;
+        PrintExp(exponents);
     }
 
     std::cout<<std::endl;
-    for(int l=0;l<20;l++)
-    {
-    std::cout<<coord[l][0]<<"    "<<exponents[0]/coord[l][0]
-                              <<"    "<<exponents[1]/coord[l][0]
-                              <<"    "<<exponents[2]/coord[l][0]
-                              <<"    "<<exponents[3]/coord[l][0]<<std::endl;
-    }
-    /*for(int l=0;l<10;l++)
-    {
-        for(int i=0;i<NumEq;i++)
-        {
-            std::cout<<coord[l][i]<<"   ";
-        }   
-        std::cout<<std::endl;
-    }*/
+    //PrintLastExp(exponents,20);
     return exponents;
+}
+/*
+void PrintLastExp(std::vector<double> var1, int times)
+{
+    for(int j=0;j>=times;j--)
+    {
+        for(int i =0;i<(int)var1.size();i++)
+        {
+            std::cout<<var1[i]<<"    ";
+        } 
+        std::cout<<std::endl;
+    }
+}
+*/
+void PrintExp(std::vector<double> var1)
+{
+    for(int i=0;i<(int)var1.size();i++)
+        {
+            std::cout<<var1[i]<<"    ";
+        } 
+        std::cout<<std::endl;
 }
