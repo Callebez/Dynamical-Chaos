@@ -5,11 +5,12 @@
 #include<cmath>
 #include<string>
 // #include "../include/gnuplot-iostream.h"
-// #include "../include/rungekutta4thSquare.hpp"
-#include "../include/biffurcation.hpp"
+ //#include "../include/rungekutta4thSquare.hpp"
+//#include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
 #include "../include/plotting.hpp"
 
+#include "../include/LyapExp.hpp"
 std::vector<double> lorenz(std::vector<double> coord, double rho)
 {
     std::vector<double> coord_dot(3,0);
@@ -24,6 +25,10 @@ int main()
 
     std::vector<double> integrationAux = {1,1,1};
 
+    std::vector<double> integrationAux = {6,1,0,1};
+    std::vector<double> help = {10,1,0};
+    
+    /*
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
     
@@ -79,6 +84,15 @@ int main()
     std::vector<double>::iterator paramValue;
 
     for(int i = 0; i < 20; i++)
+    double range[2] = {0.0 , 2.0};
+    std::vector<std::vector<double>> biff = biffurcation(classicalPendulum,range,integrationAux, 0.001,0.1,4);
+    // int iterations = (int)(abs(time_span[1]-time_span[0])/step);
+    std::ofstream biffdiagramA;
+    std::ofstream biffdiagramB;
+    biffdiagramA.open("DAT/biffurcationsC.dat");
+    biffdiagramB.open("DAT/biffurcationsD.dat");
+    //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
+    for(int j = 0; j < (int)biff[0].size(); j++)
     {
         param[i] = i*0.1;
         // std::cout<<param[i]<<" \n";
@@ -167,5 +181,12 @@ int main()
     // }
     // biffdiagramA.close();
     // biffdiagramB.close();
+    biffdiagramA.close();
+    biffdiagramB.close();*/
+    int iterations=1e4;
+    double step = 1e-3;
+    //std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
+    std::vector<double> Exponents=LyapunovExponents(lorenz,help,step,iterations);
+    std::cout<<std::endl<<"finish"<<std::endl;
     return 0;    
 }
