@@ -24,7 +24,10 @@ std::vector<double> LyapunovExponents (std::vector<double>(*function)(std::vecto
         {
             coord[l][NumEq*i+1]/=norm[0];        
         }*/
-        norm[0]+=pow(coord[l][0],2);
+        for(int i=0;i<NumEq;i++)
+        {
+            norm[0]+=pow(coord[l][i],2);
+        }
         norm[0]=sqrt(norm[0]);
         coord[l][0]/=norm[0];        
         //Normalização dos demais vetores
@@ -38,7 +41,10 @@ std::vector<double> LyapunovExponents (std::vector<double>(*function)(std::vecto
             {
                 coord[l][i]-=GramCoef[k]*coord[l][i];
             }
-            norm[i]+=pow(coord[l][i],2);
+            for(int k=0;k<NumEq;k++)
+            {
+                norm[i]+=pow(coord[l][i],2);
+            }
             norm[i]=sqrt(norm[i]);
             coord[l][i]/=norm[i];
         }
@@ -48,6 +54,15 @@ std::vector<double> LyapunovExponents (std::vector<double>(*function)(std::vecto
             exponents[j]=+log(norm[j])/log(2.0);
         }
         std::cout<<coord[l][0]<<"    "<<exponents[0]/coord[l][0]
+                              <<"    "<<exponents[1]/coord[l][0]
+                              <<"    "<<exponents[2]/coord[l][0]
+                              <<"    "<<exponents[3]/coord[l][0]<<std::endl;
+    }
+
+    std::cout<<std::endl;
+    for(int l=0;l<20;l++)
+    {
+    std::cout<<coord[l][0]<<"    "<<exponents[0]/coord[l][0]
                               <<"    "<<exponents[1]/coord[l][0]
                               <<"    "<<exponents[2]/coord[l][0]
                               <<"    "<<exponents[3]/coord[l][0]<<std::endl;
