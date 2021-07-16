@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "../inculde/control.h"
+#include "../include/control.h"
 
 // void output(int n, double *y, double t);
 

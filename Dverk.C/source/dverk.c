@@ -7,8 +7,8 @@
  *
  */
 
-#include "../inculde/control.h"
-#include "../inculde/dverk.h"
+#include "../include/control.h"
+#include "../include/dverk.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

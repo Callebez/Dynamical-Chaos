@@ -13,8 +13,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
-#include "../inculde/control.h"
-#include "../inculde/2sp-osc.h"
+#include "../include/control.h"
+#include "../include/2sp-osc.h"
 
 void fcn2sposc(int n, double t, double *y, double *yprime, void *fdata);
 

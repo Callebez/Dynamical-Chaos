@@ -11,8 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
-#include "../inculde/control.h"
-#include "../inculde/rinaldi.h"
+#include "../include/control.h"
+#include "../include/rinaldi.h"
 
 void fcnrinaldi(int n, double t, double *y, double *yprime, void *fdata);
 

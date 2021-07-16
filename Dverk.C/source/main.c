@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <strings.h>
-#include <cgic.h>
+#include "../include/cgic.h"
 #include "../include/control.h"
 #include "../include/dverk.h"
 
