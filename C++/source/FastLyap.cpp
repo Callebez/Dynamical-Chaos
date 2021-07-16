@@ -52,4 +52,23 @@ long double dotproduct (std::vector<double> a , std::vector<double> b)
     }
     return result;
 }
+std::vector<double> MatrixVector (std::vector<std::vector<double>> mat, std::vector<double> vec)
+{
+    std::vector<double> result;
+    double aux;
+    if(mat[0].size()==vec.size())
+    {
+        for(int i=0;i<(int)mat.size();i++)
+        {
+            aux=0;
+            for(int j=0;j<vec.size();j++)
+            {
+                aux+=mat[i][j]*vec[j];
+            }
+            result.push_back(aux);
+        }
+    }
+    return result;
+}
+
 
