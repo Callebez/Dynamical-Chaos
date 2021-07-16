@@ -6,17 +6,10 @@
 // #include "../include/gnuplot-iostream.h"
  //#include "../include/rungekutta4thSquare.hpp"
 //#include "../include/biffurcation.hpp"
-#include "../include/penduli.hpp"
+#include "../include/systems.hpp"
 #include "../include/LyapExp.hpp"
-std::vector<double> lorenz(std::vector<double> coord, double rho)
-{
-    std::vector<double> coord_dot(3,0);
-    coord_dot[0] = 10.0*(coord[1]- coord[0]);
-    coord_dot[1] = coord[0]*rho- coord[0]*coord[2] - coord[1];
-    coord_dot[2] = coord[0]*coord[1] - 8.0/3.0*coord[2];
-    return coord_dot;
-    
-}
+#include "../include/FastLyap.hpp"
+
 int main()
 {
 
@@ -95,11 +88,29 @@ int main()
     }
     biffdiagramA.close();
     biffdiagramB.close();*/
+
+
+
+    /*
     int iterations=1e4;
     double step = 1e-3;
     //std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
     std::cout<<std::endl;
     std::vector<double> Exponents=LyapunovExponents(lorenz,help,step,iterations);
-    std::cout<<std::endl<<"finish"<<std::endl;
+    std::cout<<std::endl<<"finish"<<std::endl;*/
+
+    std::vector<double> auxil;
+    auxil=RandVec(3);
+    std::cout<<std::endl;
+    for(int i=0;i<(int)auxil.size();i++)
+    {
+        std::cout<<auxil[i]<<"     ";
+    }
+    auxil=normalize(auxil);
+    std::cout<<std::endl;
+    for(int i=0;i<(int)auxil.size();i++)
+    {
+        std::cout<<auxil[i]<<"     ";
+    }
     return 0;    
 }

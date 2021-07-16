@@ -1,4 +1,4 @@
-#include "../include/penduli.hpp"
+#include "../include/systems.hpp"
 
 std::vector<double> classicalPendulum(std::vector<double> coord, double k)
 {
@@ -22,6 +22,16 @@ std::vector<double> quantumPenduli(std::vector<double> coord, double gamma)
 
     return coord_dot; 
 }
+std::vector<double> lorenz(std::vector<double> coord, double rho)
+{
+    std::vector<double> coord_dot(3,0);
+    coord_dot[0] = 10.0*(coord[1]- coord[0]);
+    coord_dot[1] = coord[0]*rho- coord[0]*coord[2] - coord[1];
+    coord_dot[2] = coord[0]*coord[1] - 8.0/3.0*coord[2];
+    return coord_dot;
+    
+}
+
 
 double flutuation(double x, double y, double gamma)
 {
@@ -36,3 +46,25 @@ double flutuation(double x, double y, double gamma)
              pow((1.0 + 0.3345167463*(pow(x,2.0) +  pow(y,2.0)) +
               0.09871707060*(pow(x,4.0) +  pow(y,4.0))),2.0));
 }
+std::vector<double> MatrixVector (std::vector<std::vector<double>> mat, std::vector<double> vec)
+{
+    std::vector<double> result;
+    double aux;
+    if(mat[0].size()==vec.size())
+    {
+        for(int i=0;i<(int)mat.size();i++)
+        {
+            aux=0;
+            for(int j=0;j<vec.size();j++)
+            {
+                aux+=mat[i][j]*vec[j];
+            }
+            result.push_back(aux);
+        }
+    }
+    return result;
+}
+
+
+
+
