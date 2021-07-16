@@ -28,8 +28,7 @@ std::vector<double> lorenz(std::vector<double> coord, double rho)
     coord_dot[0] = 10.0*(coord[1]- coord[0]);
     coord_dot[1] = coord[0]*rho- coord[0]*coord[2] - coord[1];
     coord_dot[2] = coord[0]*coord[1] - 8.0/3.0*coord[2];
-    return coord_dot;
-    
+    return coord_dot;  
 }
 
 std::vector<std::vector<double>> LorenzJacobian(std::vector<double> coord, double rho)

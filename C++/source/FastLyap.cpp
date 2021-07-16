@@ -33,11 +33,15 @@ std::vector<double> normalize (std::vector<double> vec)
     }
     return vec;
 }
-long double LyapExp (std::vector<double> (*function)(std::vector<double>, double),std::vector<double> initialcondition, double step)
+long double LyapExp (std::vector<double> (*systen)(std::vector<double>, double),
+                     std::vector<std::vector<double>> (*jacobian)(std::vector<double>, double),
+                     double parameter,std::vector<double> initialcondition, double step, int iterations)
 {
     long double exponent;
-    
-
+    for(int i=0;i<iterations;i++)
+    {
+        /*colocar rungekutta e cálculo de expoente de Lyapunov*/
+    }
     return exponent;
 }
 long double dotproduct (std::vector<double> a , std::vector<double> b)
