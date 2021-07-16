@@ -32,6 +32,16 @@ std::vector<double> lorenz(std::vector<double> coord, double rho)
     
 }
 
+std::vector<std::vector<double>> LorenzJacobian(std::vector<double> coord, double rho)
+{
+    std::vector<std::vector<double>> jacobian (3);
+    double a=10;
+    double b=8/3;
+    jacobian[0]={-a,a,0};
+    jacobian[1]={rho-coord[2],-1,-coord[0]};
+    jacobian[2]={coord[1],coord[0],-b};
+    return jacobian;
+}
 
 double flutuation(double x, double y, double gamma)
 {
