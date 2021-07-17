@@ -3,6 +3,8 @@
 #include <time.h>
 #include<iostream>
 #include"../include/rungekutta4thSquare.hpp"
+#include"../include/systems.hpp"
+#include"../include/FastLyap.hpp"
 
 std::vector<double> RandVec(int dimention)
 {
@@ -33,14 +35,22 @@ std::vector<double> normalize (std::vector<double> vec)
     }
     return vec;
 }
-long double LyapExp (std::vector<double> (*systen)(std::vector<double>, double),
+long double FastLyapExp (std::vector<double> (*system)(std::vector<double>, double),
                      std::vector<std::vector<double>> (*jacobian)(std::vector<double>, double),
                      double parameter,std::vector<double> initialcondition, double step, int iterations)
 {
     long double exponent;
-    for(int i=0;i<iterations;i++)
+    std::vector<std::vector<double>> coord (iterations);
+    coord[0]=initialcondition;
+    std::vector<double>Z ((int)initialcondition.size());
+    std::vector<double>UZ ((int)initialcondition.size());
+    for(int i=1;i<iterations;i++)
     {
-        /*colocar rungekutta e cálculo de expoente de Lyapunov*/
+        Z=normalize(RandVec((int)Z.size()));
+        UZ=MatrixVector(LorenzJacobian(coord[i-1],parameter),Z);
+        exponent=dotproduct(UZ,Z)/pow(VecLenght(Z),2);
+        std::cout<<exponent<<std::endl;
+        coord[i]=rungeKutta4thSquare(system,coord[i-1],parameter,step,(int)coord.size());
     }
     return exponent;
 }
@@ -49,7 +59,7 @@ long double dotproduct (std::vector<double> a , std::vector<double> b)
     long double result = 0.0;
     if(a.size()==b.size())
     {
-        for(int i=0;i<a.size();i++)
+        for(int i=0;i<(int)a.size();i++)
         {
             result+=a[i]*b[i];
         }
@@ -65,7 +75,7 @@ std::vector<double> MatrixVector (std::vector<std::vector<double>> mat, std::vec
         for(int i=0;i<(int)mat.size();i++)
         {
             aux=0;
-            for(int j=0;j<vec.size();j++)
+            for(int j=0;j<(int)vec.size();j++)
             {
                 aux+=mat[i][j]*vec[j];
             }
@@ -74,5 +84,17 @@ std::vector<double> MatrixVector (std::vector<std::vector<double>> mat, std::vec
     }
     return result;
 }
+long double VecLenght (std::vector<double> vec)
+{
+    long double lenght=0;
+    for (int i=0;i<(int)vec.size();i++)
+    {
+        lenght+=pow(vec[i],2);
+    }
+    lenght=sqrt(lenght);
+    return lenght;
+}
+
+
 
 

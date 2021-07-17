@@ -7,7 +7,7 @@
  //#include "../include/rungekutta4thSquare.hpp"
 //#include "../include/biffurcation.hpp"
 #include "../include/systems.hpp"
-#include "../include/LyapExp.hpp"
+//#include "../include/LyapExp.hpp"
 #include "../include/FastLyap.hpp"
 
 int main()
@@ -15,7 +15,7 @@ int main()
 
     std::vector<double> integrationAux = {6,1,0,1};
     std::vector<double> help = {10,1,0};
-
+    long double exponent;
     /*
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
@@ -98,19 +98,11 @@ int main()
     std::cout<<std::endl;
     std::vector<double> Exponents=LyapunovExponents(lorenz,help,step,iterations);
     std::cout<<std::endl<<"finish"<<std::endl;*/
-
-    std::vector<double> auxil;
-    auxil=RandVec(3);
-    std::cout<<std::endl;
-    for(int i=0;i<(int)auxil.size();i++)
-    {
-        std::cout<<auxil[i]<<"     ";
-    }
-    auxil=normalize(auxil);
-    std::cout<<std::endl;
-    for(int i=0;i<(int)auxil.size();i++)
-    {
-        std::cout<<auxil[i]<<"     ";
-    }
+    double param=45.92;
+    double step=1e-3;
+    int iterations=1e5;
+    exponent=FastLyapExp(lorenz, LorenzJacobian, param, help, step,iterations);
+    std::cout<<"O valor do expoente médio de Lyapunov do sistema de Lorenz possui valor de: "<<exponent<<std::endl;
+    std::cin.get();
     return 0;    
 }

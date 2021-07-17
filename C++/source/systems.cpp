@@ -25,9 +25,11 @@ std::vector<double> quantumPenduli(std::vector<double> coord, double gamma)
 std::vector<double> lorenz(std::vector<double> coord, double rho)
 {
     std::vector<double> coord_dot(3,0);
-    coord_dot[0] = 10.0*(coord[1]- coord[0]);
+    double a=10;
+    double b=8/3;
+    coord_dot[0] = a*(coord[1]- coord[0]);
     coord_dot[1] = coord[0]*rho- coord[0]*coord[2] - coord[1];
-    coord_dot[2] = coord[0]*coord[1] - 8.0/3.0*coord[2];
+    coord_dot[2] = coord[0]*coord[1] - b*coord[2];
     return coord_dot;  
 }
 
