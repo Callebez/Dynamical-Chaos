@@ -20,6 +20,26 @@ std::vector<double> rungeKutta4thSquare(std::vector<double> (*function)(std::vec
     }
     return coord;
 }
+std::vector<double> rungeKutta4thSquarePertubation(std::vector<double> (*function)(std::vector<double>,std::vector<double>, double), 
+                                  std::vector<double> coord,std::vector<double> pertubation, double param, double step, 
+                                  int dimension, std::vector<double>& functionAval )
+{
+    std::vector<double> k1 (dimension);
+    std::vector<double> k2 (dimension);
+    std::vector<double> k3 (dimension);
+    std::vector<double> k4 (dimension);
+    
+    k1 = function(coord, pertubation, param);
+    k2 = function(updateCoord(coord, k1, (double)step, 2.0,dimension), pertubation, param);
+    k3 = function(updateCoord(coord, k2, (double)step, 2.0,dimension), pertubation, param);
+    k4 = function(updateCoord(coord, k3, (double)step, 1.0,dimension), pertubation, param);
+    for(int i = 0; i < dimension; i++)
+    {
+        coord[i] = coord[i] + ((double)step/(double)6.0)*(k1[i]+2.0*k2[i] + 2.0*k3[i]+ k4[i]);
+    }
+    functionAval = k1;
+    return coord;
+}
 std::vector<double> updateCoord(std::vector<double> coord, std::vector<double> increment, double step, double scale,int dimension)
 {
     std::vector<double> updatedCoord (dimension);

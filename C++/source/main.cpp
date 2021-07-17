@@ -8,16 +8,25 @@
 //#include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
 #include "../include/LyapExp.hpp"
+#include "../include/LyapExp.hpp"
+
 int main()
 {
+    std::vector<double> integrationAux = {1,1,1};
+    // std::vector<double> integrationAux2 = {20,4,0};
+    // normalize(integrationAux2);
+    // std::cout<< integrationAux2[0]<<", "<< integrationAux2[1] << ", "<< integrationAux2[2];
 
-    std::vector<double> integrationAux = {6,1,0,1};
+    // double time[2] = {0,10000.0};
+    // completeRungeKuttaToFile(classicalPendulum,integrationAux, 1,0.01,4,time);
+    std::cout<<lyapunov(lorenz,integrationAux,lorenzJaconian,3,0.01);
     /*
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
     
     // double timespan[] = {0,10};
     // auxVec = rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
+
     // completeRungeKuttaToFile(classicalPendulum, integrationAux, 1, step, 4, timespan);
 
 
@@ -84,10 +93,10 @@ int main()
     }
     biffdiagramA.close();
     biffdiagramB.close();*/
-    int iterations=1e4;
-    double step = 1e-3;
-    std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
-    std::vector<double> Exponents=LyapunovExponents(classicalPendulum,integrationAux,step,iterations);
+    // int iterations=1e4;
+    // double step = 1e-3;
+    // std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
+    // std::vector<double> Exponents=LyapunovExponents(classicalPendulum,integrationAux,step,iterations);
     
     return 0;    
 }

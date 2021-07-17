@@ -13,5 +13,7 @@ std::vector<double> rungeKutta4thSquare(std::vector<double> (*function)(std::vec
                                   int dimension );
 void completeRungeKuttaToFile(std::vector<double> (*function)(std::vector<double>, double), std::vector<double> initialCond,
                                                    double param, double step, int dimension, double time_span[2]);
-
+std::vector<double> rungeKutta4thSquarePertubation(std::vector<double> (*function)(std::vector<double>,std::vector<double>, double), 
+                                  std::vector<double> coord,std::vector<double> pertubation, double param, double step, 
+                                  int dimension, std::vector<double>& functionAval );
 #endif
