@@ -14,7 +14,6 @@ std::vector<double> RandVec(int dimention)
     {
         z.push_back(((long double)rand()/RAND_MAX)*pow(-1,rand()%2));
     }
-    std::cout<<rand()<<std::endl<<rand()<<std::endl<<rand()<<std::endl;
     /*for(int i=0;i<dimention;i++)
     {
         std::cout<<z[i]<<"   ";
@@ -44,13 +43,13 @@ long double FastLyapExp (std::vector<double> (*system)(std::vector<double>, doub
     coord[0]=initialcondition;
     std::vector<double>Z ((int)initialcondition.size());
     std::vector<double>UZ ((int)initialcondition.size());
-    for(int i=1;i<iterations;i++)
+    for(int i=0;i<iterations-1;i++)
     {
         Z=normalize(RandVec((int)Z.size()));
-        UZ=MatrixVector(LorenzJacobian(coord[i-1],parameter),Z);
+        UZ=MatrixVector(LorenzJacobian(coord[i],parameter),Z);
         exponent=dotproduct(UZ,Z)/pow(VecLenght(Z),2);
         std::cout<<exponent<<std::endl;
-        coord[i]=rungeKutta4thSquare(system,coord[i-1],parameter,step,(int)coord.size());
+        coord[i+1]=rungeKutta4thSquare(system,coord[i],parameter,step,(int)coord[0].size());
     }
     return exponent;
 }

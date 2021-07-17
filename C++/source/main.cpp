@@ -100,7 +100,7 @@ int main()
     std::cout<<std::endl<<"finish"<<std::endl;*/
     double param=45.92;
     double step=1e-3;
-    int iterations=1e5;
+    int iterations=1e4;
     exponent=FastLyapExp(lorenz, LorenzJacobian, param, help, step,iterations);
     std::cout<<"O valor do expoente médio de Lyapunov do sistema de Lorenz possui valor de: "<<exponent<<std::endl;
     std::cin.get();
