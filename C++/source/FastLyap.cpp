@@ -39,6 +39,7 @@ long double FastLyapExp (std::vector<double> (*system)(std::vector<double>, doub
                      double parameter,std::vector<double> initialcondition, double step, int iterations)
 {
     long double exponent;
+    std::ofstream dados("./DAT/Fast/LyapunovExponents.dat");
     std::vector<std::vector<double>> coord (iterations);
     coord[0]=initialcondition;
     std::vector<double>Z ((int)initialcondition.size());
@@ -48,7 +49,7 @@ long double FastLyapExp (std::vector<double> (*system)(std::vector<double>, doub
         Z=normalize(RandVec((int)Z.size()));
         UZ=MatrixVector(LorenzJacobian(coord[i],parameter),Z);
         exponent=dotproduct(UZ,Z)/pow(VecLenght(Z),2);
-        std::cout<<exponent<<std::endl;
+        dados<<i<<"   "<<exponent<<std::endl;
         coord[i+1]=rungeKutta4thSquare(system,coord[i],parameter,step,(int)coord[0].size());
     }
     return exponent;
