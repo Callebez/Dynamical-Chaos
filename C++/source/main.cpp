@@ -5,21 +5,40 @@
 #include<cmath>
 // #include "../include/gnuplot-iostream.h"
  //#include "../include/rungekutta4thSquare.hpp"
-//#include "../include/biffurcation.hpp"
+#include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
 #include "../include/LyapExp.hpp"
-#include "../include/LyapExp.hpp"
+#include "../include/lorenz.hpp"
+#include "../include/LinearAlgebra.hpp"
 
 int main()
 {
-    std::vector<double> integrationAux = {1,1,1};
+
+    // std::vector<std::vector<double>> M ={{2, 4}, 
+                                        // {3, 4}};
+    std::vector<double> integrationAux = {1.0,2.0,3.0};
+
+    std::vector<long double> lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,0.001,28.0);
+    // std::vector<std::vector<double>> A = matMult(M,N);
+    std::cout<<"lyapunov exponents: "<<(lya[0])<<", "<<(lya[1])<<", "<<(lya[2])<<"\n ";
+    std::cout<<"lyapunov numbers: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n ";
+
+    std::cout<<"sum of lyapunov exponents: "<< lya[0] + lya[1] + lya[2];
+    // std::vector<std::vector<double>> m = identityMatrix(5);
+    // for(int i = 0; i < 3; i++)
+    // {s
+    
+    // }
+    // printMatrix(N);
+  
+    // std::vector<double> integrationAux = {1,1,1};
     // std::vector<double> integrationAux2 = {20,4,0};
     // normalize(integrationAux2);
     // std::cout<< integrationAux2[0]<<", "<< integrationAux2[1] << ", "<< integrationAux2[2];
 
     // double time[2] = {0,10000.0};
     // completeRungeKuttaToFile(classicalPendulum,integrationAux, 1,0.01,4,time);
-    std::cout<<lyapunov(lorenz,integrationAux,lorenzJaconian,3,0.01);
+    // std::cout<<lyapunov(lorenz,integrationAux,lorenzJaconian,3,0.01);
     /*
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
