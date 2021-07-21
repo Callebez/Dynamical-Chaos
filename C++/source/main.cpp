@@ -21,10 +21,8 @@ int main()
 
     std::vector<long double> lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,0.001,28.0);
     // std::vector<std::vector<double>> A = matMult(M,N);
-    std::cout<<"lyapunov exponents: "<<(lya[0])<<", "<<(lya[1])<<", "<<(lya[2])<<"\n ";
-    std::cout<<"lyapunov numbers: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n ";
-
-    std::cout<<"sum of lyapunov exponents: "<< lya[0] + lya[1] + lya[2];
+    std::cout<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n ";
+    // std::cout<<"sum:"<< lya[0]
     // std::vector<std::vector<double>> m = identityMatrix(5);
     // for(int i = 0; i < 3; i++)
     // {s
