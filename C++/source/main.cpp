@@ -3,7 +3,6 @@
 #include<iterator> // for iterators
 #include<vector> // for vectors
 #include<cmath>
-#include<string>
 // #include "../include/gnuplot-iostream.h"
  //#include "../include/rungekutta4thSquare.hpp"
 //#include "../include/biffurcation.hpp"
@@ -20,8 +19,12 @@ std::vector<double> lorenz(std::vector<double> coord, double rho)
     return coord_dot;
     
 }
+#include "../include/LyapExp.hpp"
+#include "../include/lorenz.hpp"
+
 int main()
 {
+    std::vector<double> integrationAux = {1.0,2.0,3.0};
 
     std::vector<double> integrationAux = {1,1,1};
 
@@ -186,7 +189,13 @@ int main()
     int iterations=1e4;
     double step = 1e-3;
     //std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
-    std::vector<double> Exponents=LyapunovExponents(lorenz,help,step,iterations);
-    std::cout<<std::endl<<"finish"<<std::endl;
+    /*std::vector<double> Exponents=LyapunovExponents(lorenz,help,step,iterations);
+    std::cout<<std::endl<<"finish"<<std::endl;*/
+    std::vector<long double> lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,0.001,28.0);
+    // std::vector<std::vector<double>> A = matMult(M,N);
+    std::cout<<"lyapunov exponents: "<<(lya[0])<<", "<<(lya[1])<<", "<<(lya[2])<<"\n ";
+    std::cout<<"lyapunov numbers: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n ";
+
+    std::cout<<"sum of lyapunov exponents: "<< lya[0] + lya[1] + lya[2];
     return 0;    
 }

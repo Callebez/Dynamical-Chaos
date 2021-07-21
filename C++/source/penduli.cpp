@@ -10,7 +10,7 @@ std::vector<double> classicalPendulum(std::vector<double> coord, double k)
     
     return coord_dot;
 }
-std::vector<double> quantumPenduli(std::vector<double> coord, double gamma)
+std::vector<double> quantumPendulum(std::vector<double> coord, double gamma)
 {
     std::vector<double> coord_dot (4,0);
     srand (time(NULL));
@@ -36,3 +36,8 @@ double flutuation(double x, double y, double gamma)
              pow((1.0 + 0.3345167463*(pow(x,2.0) +  pow(y,2.0)) +
               0.09871707060*(pow(x,4.0) +  pow(y,4.0))),2.0));
 }
+
+
+
+
+
