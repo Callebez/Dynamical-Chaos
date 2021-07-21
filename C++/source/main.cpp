@@ -18,7 +18,7 @@ int main()
                                         // {3, 4}};
     std::vector<double> integrationAux = {1.0,2.0,3.0};
 
-    std::vector<double> lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,0.001,28.0);
+    std::vector<long double> lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,0.001,28.0);
     // std::vector<std::vector<double>> A = matMult(M,N);
     std::cout<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n ";
     // std::cout<<"sum:"<< lya[0]
