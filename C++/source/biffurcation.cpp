@@ -3,7 +3,7 @@
 
 std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std::vector<double>, double),
                                             double paramRange[2], std::vector<double> initialCond, 
-                                            double paramStep, double integrationStep, int systemDimension)
+                                            double paramStep, double integrationStep, double step, int systemDimension)
 {
 
     int paramIterations = (int)((fabs(paramRange[1]-paramRange[0])/paramStep));
@@ -16,6 +16,7 @@ std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std
     std::vector<double>::iterator paramValue;
     std::vector<double> xCoord (integrationIterations-1,0);
     std::vector<double> auxIntegration;
+
     for(int i = 0; i < paramIterations; i++)
     {
         param[i] = i*paramStep;
@@ -28,36 +29,15 @@ std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std
         //integration for transient state
         for(int i = 0; i < integrationIterations-1; i++)
         {
-            // std::cout<<auxCoord[i][0];
-            auxCoord[i+1] = rungeKutta4thSquare(function, auxCoord[i], *paramValue, integrationStep,systemDimension);
-            xCoord[i] = auxCoord[i][2];
-           // std::cout<<xCoord[i]<<"\n";
+            auxCoord[i+1] = rungeKutta4thSquare(function, auxCoord[i], *paramValue, 0.00001,systemDimension);
+            xCoord[i] = auxCoord[i][0];
         }
-        // for(uint i = 0; i < auxCoord.size(); i++)
-        // {
-        //     for(uint j = 0; j < auxCoord[0].size(); j++)
-        //     {
-        //         std::cout<<auxCoord[i][j] <<" ";
-        //     }
-        //     std::cout<<"\n";
-        // }
-        //     std::cout<< "   FIM     "<<std::endl;
 
         auxCoord[0] = auxCoord[integrationIterations-1];
-        // std::cout<<auxIntegration[0]<<"\n";
-        
-     
-        //  for(uint i = 0; i < auxCoord.size(); i++)
-        // {
-        //     for(uint j = 0; j < auxCoord[0].size(); j++)
-        //     {
-        //         std::cout<<auxCoord[i][j] <<" ";
-        //     }
-        //     std::cout<<"\n";
-        // }
-        for(int i = 1; i < integrationIterations-2; i++)
+
+        for(int i = 1; i < integrationIterations-1; i++)
         {
-            if( (xCoord[i-1]<xCoord[i]) & (xCoord[i]>xCoord[i+1]))
+            if((xCoord[i-1]<xCoord[i]) & (xCoord[i]>xCoord[i+1]))
             {
                 biffurcation[1].push_back(xCoord[i]);
                 biffurcation[0].push_back((double)(*paramValue));

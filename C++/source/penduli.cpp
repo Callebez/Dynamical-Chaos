@@ -10,7 +10,7 @@ std::vector<double> classicalPendulum(std::vector<double> coord, double k)
     
     return coord_dot;
 }
-std::vector<double> quantumPenduli(std::vector<double> coord, double gamma)
+std::vector<double> quantumPendulum(std::vector<double> coord, double gamma)
 {
     std::vector<double> coord_dot (4,0);
     srand (time(NULL));

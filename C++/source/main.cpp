@@ -5,31 +5,49 @@
 #include<cmath>
 #include<string>
 // #include "../include/gnuplot-iostream.h"
-// #include "../include/rungekutta4thSquare.hpp"
+ //#include "../include/rungekutta4thSquare.hpp"
 #include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
-#include "../include/plotting.hpp"
+#include "../include/LyapExp.hpp"
+#include "../include/lorenz.hpp"
+#include "../include/LinearAlgebra.hpp"
 
-std::vector<double> lorenz(std::vector<double> coord, double rho)
-{
-    std::vector<double> coord_dot(3,0);
-    coord_dot[0] = 10.0*(coord[1]- coord[0]);
-    coord_dot[1] = coord[0]*rho- coord[0]*coord[2] - coord[1];
-    coord_dot[2] = coord[0]*coord[1] - 8.0/3.0*coord[2];
-    return coord_dot;
-    
-}
 int main()
 {
 
-    std::vector<double> integrationAux = {1,1,1};
+    // std::vector<std::vector<double>> M ={{2, 4}, 
+                                        // {3, 4}};
+    std::vector<double> integrationAux = {1.0,2.0,3.0};
 
+    std::vector<long double> lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,0.001,28.0);
+    // std::vector<std::vector<double>> A = matMult(M,N);
+    std::cout<<"lyapunov exponents: "<<(lya[0])<<", "<<(lya[1])<<", "<<(lya[2])<<"\n ";
+    std::cout<<"lyapunov numbers: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n ";
+
+    std::cout<<"sum of lyapunov exponents: "<< lya[0] + lya[1] + lya[2];
+    // std::vector<std::vector<double>> m = identityMatrix(5);
+    // for(int i = 0; i < 3; i++)
+    // {s
+    
+    // }
+    // printMatrix(N);
+  
+    // std::vector<double> integrationAux = {1,1,1};
+    // std::vector<double> integrationAux2 = {20,4,0};
+    // normalize(integrationAux2);
+    // std::cout<< integrationAux2[0]<<", "<< integrationAux2[1] << ", "<< integrationAux2[2];
+
+    // double time[2] = {0,10000.0};
+    // completeRungeKuttaToFile(classicalPendulum,integrationAux, 1,0.01,4,time);
+    // std::cout<<lyapunov(lorenz,integrationAux,lorenzJaconian,3,0.01);
+    /*
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
     
     // double timespan[] = {0,10};
     // auxVec = rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
-    // completeRungeKuttaToFile(lorenz, integrationAux, 1, step, 4, timespan);
+
+    // completeRungeKuttaToFile(classicalPendulum, integrationAux, 1, step, 4, timespan);
 
 
     // std::vector<double> param (10,0);
@@ -74,11 +92,15 @@ int main()
 //         }
 //         std::cout<<std::endl;
 //     }
-    
-    std::vector<double> param (20,0);
-    std::vector<double>::iterator paramValue;
-
-    for(int i = 0; i < 20; i++)
+    double range[2] = {0.0 , 2.0};
+    std::vector<std::vector<double>> biff = biffurcation(classicalPendulum,range,integrationAux, 0.001,0.1,4);
+    // int iterations = (int)(abs(time_span[1]-time_span[0])/step);
+    std::ofstream biffdiagramA;
+    std::ofstream biffdiagramB;
+    biffdiagramA.open("DAT/biffurcationsC.dat");
+    biffdiagramB.open("DAT/biffurcationsD.dat");
+    //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
+    for(int j = 0; j < (int)biff[0].size(); j++)
     {
         param[i] = i*0.1;
         // std::cout<<param[i]<<" \n";
@@ -131,41 +153,12 @@ int main()
         Pxt<<"\n" <<std::endl;
         Pyt<<"\n" <<std::endl;
     }
-    plotAnimate2D("classicalXt.gif", "classicalXt.dat", 30);
-    plotAnimate2D("classicalYt.gif", "classicalYt.dat", 30);
-    plotAnimate2D("classicalPxt.gif", "classicalPxt.dat", 30);
-    plotAnimate2D("classicalPyt.gif", "classicalPyt.dat", 30);
-  
-
-
-    Xt.close();
-    Yt.close();
-    Pxt.close();
-    Pyt.close();
-
-    // plotAnimate("lorenz.gif", "outputrk4thnew.dat", 10);
-    // std::cout<<"success!";
-   //completeRungeKuttaToFile(lorenz, {1,1,1}, 28, 0.01, 3, time_span);
-    // double range[2] = {0 , 20};
-    // std::vector<std::vector<double>> biff = biffurcation(classicalPendulum,range,integrationAux, 0.01,0.01,4);
-    // // int iterations = (int)(abs(time_span[1]-time_span[0])/step);
-    // std::ofstream biffdiagramA;
-    // std::ofstream biffdiagramB;
-    // biffdiagramA.open("biffurcationsC.dat");
-    // biffdiagramB.open("biffurcationsD.dat");
-    // //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
-    // for(int j = 0; j < (int)biff[0].size(); j++)
-    // {
-      
-    //     for(int i = 0; i < 2; i++)
-    //     {
-    //         biffdiagramA << biff[i][j] <<"  ";
-    //         biffdiagramB << biff[2+i][j] <<"  ";
-    //     }
-    //     biffdiagramA<< std::endl;
-    //     biffdiagramB<< std::endl;
-    // }
-    // biffdiagramA.close();
-    // biffdiagramB.close();
+    biffdiagramA.close();
+    biffdiagramB.close();*/
+    // int iterations=1e4;
+    // double step = 1e-3;
+    // std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
+    // std::vector<double> Exponents=LyapunovExponents(classicalPendulum,integrationAux,step,iterations);
+    
     return 0;    
 }
