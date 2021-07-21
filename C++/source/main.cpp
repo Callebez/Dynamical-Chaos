@@ -5,23 +5,45 @@
 #include<cmath>
 // #include "../include/gnuplot-iostream.h"
  //#include "../include/rungekutta4thSquare.hpp"
-//#include "../include/biffurcation.hpp"
-#include "../include/systems.hpp"
-//#include "../include/LyapExp.hpp"
-#include "../include/FastLyap.hpp"
+#include "../include/biffurcation.hpp"
+#include "../include/penduli.hpp"
+#include "../include/LyapExp.hpp"
+#include "../include/lorenz.hpp"
+#include "../include/LinearAlgebra.hpp"
 
 int main()
 {
 
-    std::vector<double> integrationAux = {6,1,0,1};
-    std::vector<double> help = {10,1,0};
-    long double exponent;
+    // std::vector<std::vector<double>> M ={{2, 4}, 
+                                        // {3, 4}};
+    std::vector<double> integrationAux = {1.0,2.0,3.0};
+
+    std::vector<double> lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,0.001,28.0);
+    // std::vector<std::vector<double>> A = matMult(M,N);
+    std::cout<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n ";
+    // std::cout<<"sum:"<< lya[0]
+    // std::vector<std::vector<double>> m = identityMatrix(5);
+    // for(int i = 0; i < 3; i++)
+    // {s
+    
+    // }
+    // printMatrix(N);
+  
+    // std::vector<double> integrationAux = {1,1,1};
+    // std::vector<double> integrationAux2 = {20,4,0};
+    // normalize(integrationAux2);
+    // std::cout<< integrationAux2[0]<<", "<< integrationAux2[1] << ", "<< integrationAux2[2];
+
+    // double time[2] = {0,10000.0};
+    // completeRungeKuttaToFile(classicalPendulum,integrationAux, 1,0.01,4,time);
+    // std::cout<<lyapunov(lorenz,integrationAux,lorenzJaconian,3,0.01);
     /*
     // std::vector<double> auxVec (4,0);
     // double step = 1e-3;
     
     // double timespan[] = {0,10};
     // auxVec = rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
+
     // completeRungeKuttaToFile(classicalPendulum, integrationAux, 1, step, 4, timespan);
 
 
@@ -88,21 +110,10 @@ int main()
     }
     biffdiagramA.close();
     biffdiagramB.close();*/
-
-
-
-    /*
-    int iterations=1e4;
-    double step = 1e-3;
-    //std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
-    std::cout<<std::endl;
-    std::vector<double> Exponents=LyapunovExponents(lorenz,help,step,iterations);
-    std::cout<<std::endl<<"finish"<<std::endl;*/
-    double param=45.92;
-    double step=1e-3;
-    int iterations=1e5;
-    exponent=FastLyapExp(lorenz, LorenzJacobian, param, help, step,iterations);
-    std::cout<<"O valor do expoente médio de Lyapunov do sistema de Lorenz possui valor de: "<<exponent<<std::endl;
-    std::cin.get();
+    // int iterations=1e4;
+    // double step = 1e-3;
+    // std::vector<double> coord=rungeKutta4thSquare(classicalPendulum, integrationAux, 1e-3, step, 4);
+    // std::vector<double> Exponents=LyapunovExponents(classicalPendulum,integrationAux,step,iterations);
+    
     return 0;    
 }
