@@ -57,14 +57,7 @@ std::vector<double> projectionIntoU(std::vector<double> vectorV,std::vector<doub
 }
 void transpostSquare(std::vector<std::vector<double>>& matrix)
 {
-    std::vector<std::vector<double>> aux = matrix; //(matrix.size(),std::vector<double> (matrix[0].size())); 
-    // for(uint i = 0; i < matrix.size(); i++)
-    // {
-    //     for(uint j = 0; j < matrix[0].size(); j++)
-    //     {
-    //         aux[i][j] = matrix[i][j];
-    //     }
-    // }
+    std::vector<std::vector<double>> aux = matrix; 
     for(uint i = 0; i < matrix.size(); i++)
     {
         for(uint j = 0; j < matrix[0].size(); j++)
