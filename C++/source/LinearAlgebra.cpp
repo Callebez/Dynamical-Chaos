@@ -1,5 +1,5 @@
 #include "../include/LinearAlgebra.hpp"
-#include<iostream>
+
 inline long double dotProduct(std::vector<double> &v1, std::vector<double> &v2)
 {
     long double result =  0;
@@ -92,17 +92,7 @@ void gramSchmidtNormal(std::vector<std::vector<double>>& matrix)
         }
     }
 }
-void printMatrix(std::vector<std::vector<double>>& matrix)
-{
-    for(uint i = 0; i < matrix.size(); i++)
-    {
-        for(uint j = 0; j < matrix[0].size(); j++)
-        {
-            std::cout<<matrix[i][j]<<" ";
-        }
-        std::cout<<"\n";
-    }
-}
+
 std::vector<std::vector<double>> identityMatrix(uint order)
 {
     std::vector<std::vector<double>> id (order, std::vector<double>(order,0));

@@ -50,23 +50,3 @@ std::vector<double> updateCoord(std::vector<double> coord, std::vector<double> i
     }
     return updatedCoord;
 }
-
-void completeRungeKuttaToFile(std::vector<double> (*function)(std::vector<double>, double), std::vector<double> initialCond,
-                                                   double param, double step, int dimension, double time_span[2])
-{
-    int iterations = (int)(fabs(time_span[1]-time_span[0])/step);
-    std::ofstream fileName;
-    fileName.open("ouputrk4th.dat");
-    //std::vector<double> auxVec = rungeKutta4thSquare(function, initialCond, param, step, dimension);
-    for(int j = 0; j < iterations; j++)
-    {
-        initialCond = rungeKutta4thSquare(function, initialCond, param, step, dimension);
-        for(int i = 0; i < dimension; i++)
-        {
-            fileName << initialCond[i] <<"  ";
-        }
-        fileName<< std::endl;
-    }
-    fileName.close();
-
-}

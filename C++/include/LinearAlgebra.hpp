@@ -1,7 +1,9 @@
 #ifndef LINEAR_ALGEBRA_HPP
 #define LINEAR_ALGEBRA_HPP
 #include <vector>
+#include <fstream>
 #include <cmath>
+#include <string>
 
 //Very basic operations
 inline long double dotProduct(std::vector<double> &v1, std::vector<double> &v2);
@@ -11,8 +13,7 @@ inline void normalize(std::vector<double> &vec);
 
 //Operations on matrices
 void gramSchmidt(std::vector<std::vector<double>>& matrix);
-void gramSchmidtNormal(std::vector<std::vector<double>>& matrix);
-void printMatrix(std::vector<std::vector<double>>& matrix);
+void gramSchmidtNormal(std::vector<std::vector<double>>& matrix); 
 void transpostSquare(std::vector<std::vector<double>>& matrix);
 
 //auxiliary operations on matrices

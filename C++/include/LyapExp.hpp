@@ -8,5 +8,5 @@
 
 std::vector<long double> lyapunovSpectrum(std::vector<double> (*function)(std::vector<double>, double),
                                 std::vector<std::vector<double>> (*jacobian)(std::vector<double>&,double), 
-                                std::vector<double>& initalCond, double step, double param);
+                                std::vector<double>& initialCond, double step, double param);
 #endif
