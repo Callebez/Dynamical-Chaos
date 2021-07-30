@@ -1,27 +1,33 @@
 #include "../include/plotting.hpp"
 
-void plot2D(const char* fileName,const char* inputFile, const char* titles, const char* optionalFlagsGnuPlot)
+void plot2D(const char* fileName,const char* inputFile,const char* systemName,const char* keys)
 {
     FILE *gnupipe = popen("gnuplot -persist", "w");
     if(gnupipe)
     {
-        
-        fprintf(gnupipe,"%s\n", optionalFlagsGnuPlot);
-        fprintf(gnupipe,"set output \'%s.jpeg\'\n", fileName);
-        // fprintf(gnupipe,"set title \'%s\' ")j
-        fprintf(gnupipe,"plot \'%s\' w lines lw 2 lc 7 title \'%s\'\n", inputFile, titles);
+        fprintf(gnupipe,"set terminal pngcairo enhanced size 1080,720 font \'Heveltica, 15\' \n");
+        fprintf(gnupipe,"set title \"%s \" font \'Helvetica, 16\' \n ",systemName);
+        fprintf(gnupipe,"set tics font \'Helvetica, 14\' \n" );
+        fprintf(gnupipe,"set border lw 3 \n " );
+        fprintf(gnupipe,"set key opaque \n" );
+        fprintf(gnupipe,"set output \'./outputs/images/%s.png\' \n", fileName);
+        fprintf(gnupipe,"plot \'./outputs/txt/%s.dat\' w lines lw 0.5 lc 7 title \'%s\'", fileName ,keys);
     }
 }
-void plot3D(const char* fileName,const char* inputFile, const char* titles, const char* optionalFlagsGnuPlot)
+void plot3D(const char* fileName,const char* inputFile,const char* systemName, const char* keys)
 {
-    FILE *gnupipe = fopen("gnuplot -persist", "w");
+    FILE *gnupipe = popen("gnuplot -persist", "w");
     if(gnupipe)
     {
-        
-        fprintf(gnupipe,"%s", optionalFlagsGnuPlot);
-        fprintf(gnupipe,"set output \'%s.jpeg\'", fileName);
-        fprintf(gnupipe,"splot \'%s\'" "lw 2 lc 7 title \'%s\'", inputFile, titles);
+        fprintf(gnupipe,"set terminal pngcairo enhanced size 1080,720 font \'Heveltica, 15\' \n");
+        fprintf(gnupipe,"set title \"%s \" font \'Helvetica, 16\' \n ", systemName);
+        fprintf(gnupipe,"set tics font \'Helvetica, 14\' \n" );
+        fprintf(gnupipe,"set border lw 3 \n " );
+        fprintf(gnupipe,"set key opaque \n" );
+        fprintf(gnupipe,"set output \'./outputs/images/%s.png\' \n", fileName);
+        fprintf(gnupipe,"splot \'./outputs/txt/%s.dat\' w lines lw 0.5 lc 7 title \'%s\'", fileName ,keys);
     }
+
 }
 void plotAnimate3D(const char* fileName,const char* inputFile, int delay)
 {
