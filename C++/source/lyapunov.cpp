@@ -1,6 +1,9 @@
 
 #include "../include/LyapExp.hpp"
 #include "../include/LinearAlgebra.hpp"
+#include "../include/printing.hpp"
+#include "../include/plotting.hpp"
+
 /* 
     lyapunovSpectrum:   Function for the obtain the lyapunov spectrum of exponents
     function:           Set of differential equations
@@ -13,29 +16,29 @@
 */
 std::vector<long double> lyapunovSpectrum(std::vector<double> (*function)(std::vector<double>, double),
                                 std::vector<std::vector<double>> (*jacobian)(std::vector<double>&,double), 
-                                std::vector<double>& initialCond, double step, double param)
+                                std::vector<double>& initialCond, double tol, double time, 
+                                double step, double param)
 {
    
-    uint iterations = (uint)(100.0/step);
     std::vector<double> coord = initialCond;
     std::vector<long double> lyapunovExponents (initialCond.size(),0);
+    std::vector<double> hs;
 
     std::vector<std::vector<double>> w = identityMatrix(initialCond.size());  
     std::vector<std::vector<double>> J = identityMatrix(initialCond.size());
+
+    std::vector<std::vector<double>> rk45;
+    completeRungeKutta45(function,initialCond,0, rk45, param,step,coord.size(),tol, time, hs);
     
-    //loop for making the initial conditions sit near the atractor  
-    for(uint i = 0; i < 1000; i++)
-    {
-        coord = rungeKutta4thSquare(function, coord, param, 0.01, initialCond.size());
-    }
     // main loop
-    for(uint i = 0; i < iterations; i++)
+    for(uint i = 0; i < rk45.size(); i++)
     {
+        
         //runge kutta does the evolution of the system 
-        coord = rungeKutta4thSquare(function, coord, param, step, initialCond.size());
+        coord = rk45[i];
         //the jacobian times the matrix makes the vectors in w align with the directions 
         //of the eigenvectors  
-        J = jacobian(coord,step);
+        J = jacobian(coord,hs[i]);
         w = matMult(J,w);
 
         transpostSquare(w);
@@ -51,8 +54,7 @@ std::vector<long double> lyapunovSpectrum(std::vector<double> (*function)(std::v
     }
     for(uint j = 0; j < initialCond.size(); j++)
     {
-        lyapunovExponents[j] = lyapunovExponents[j]/((long double)(100.0));
+        lyapunovExponents[j] = lyapunovExponents[j]/(time);
     }
-    
     return lyapunovExponents;
 }
