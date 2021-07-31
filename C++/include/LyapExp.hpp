@@ -4,9 +4,10 @@
 #include "../include/rungekutta4thSquare.hpp"
 #include <ctime>
 #include <cstdlib>
-#include<iostream>
-
+#include <iostream>
+#include <thread>
 std::vector<long double> lyapunovSpectrum(std::vector<double> (*function)(std::vector<double>, double),
                                 std::vector<std::vector<double>> (*jacobian)(std::vector<double>&,double), 
-                                std::vector<double>& initialCond, double step, double param);
+                                std::vector<double>& initialCond, double tol, double time, 
+                                double step, double param);
 #endif
