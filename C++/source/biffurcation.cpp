@@ -1,4 +1,7 @@
 #include "../include/biffurcation.hpp"
+#include "../include/printing.hpp"
+#include <thread>
+
 /* 
     biffurcation:       Function for the evaluation of the biffurcations in the system
                         It works by varing the parameter and integrating the system of 
@@ -16,71 +19,60 @@
 
 std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std::vector<double>, double),
                                             double paramRange[2], std::vector<double> initialCond, 
-                                            double paramStep, double integrationStep, int coordBeingAnalysed  ,int systemDimension)
+                                            double paramStep, int coordBeingAnalysed, int systemDimension)
 {
 
     int paramIterations = (int)((fabs(paramRange[1]-paramRange[0])/paramStep));    
-    int integrationIterations = (int)((double)10.0/integrationStep);
 
     std::vector<std::vector<double>> biffurcation (4);
-    std::vector<std::vector<double>> auxCoord(integrationIterations);
-    //inicialization for the integration
-    auxCoord[0]= initialCond;
+   //inicialization for the integration
 
     std::vector<double> param (paramIterations,0);
     std::vector<double>::iterator paramValue;
-    std::vector<double> xCoord (integrationIterations-1,0);
-    std::vector<double> auxIntegration;
-
+    std::vector<double> xCoord;
+    double integrationStep = 0.1;
     for(int i = 0; i < paramIterations; i++)
     {
         param[i] = paramRange[0] + i*paramStep;
-        // std::cout<<param[i]<<" \n";
     } 
-    
-    
+    std::vector<std::vector<double>> rk45;
+    std::vector<double> hs;
+   
+
     for(paramValue = param.begin(); paramValue<param.end(); paramValue++)
     {
-        //integration for transient state
-        for(int i = 0; i < integrationIterations-1; i++)
+        completeRungeKutta45(function,initialCond, rk45, *paramValue,integrationStep,initialCond.size(),1e-2, 10, hs);
+
+        xCoord.resize(rk45.size());
+        for(uint i = 0; i< rk45.size(); i++)
         {
-            auxCoord[i+1] = rungeKutta4thSquare(function, auxCoord[i], *paramValue, integrationStep,systemDimension);
-            xCoord[i] = auxCoord[i][coordBeingAnalysed];
+            xCoord[i] = rk45[i][coordBeingAnalysed];
         }
+ 
+        initialCond = rk45.back();
+        rk45.resize(0);
+ 
+        searchMaxMin(biffurcation,xCoord, paramValue);           
 
-        auxCoord[0] = auxCoord[integrationIterations-1];
+    }
+    return biffurcation;
+}
+void searchMaxMin(std::vector<std::vector<double>>& biffurcation,std::vector<double>& xCoord, std::vector<double>::iterator& paramValue)
+{
 
-        for(int i = 1; i < integrationIterations-2; i++)
+        for(int i = 0; i < (int)xCoord.size()-1; i++)
         {
             if((xCoord[i-1]<xCoord[i]) & (xCoord[i]>xCoord[i+1]))
             {
                 biffurcation[1].push_back(xCoord[i]);
                 biffurcation[0].push_back((double)(*paramValue));
-                if(xCoord[i+1]<xCoord[i+2])
-                {
-                    biffurcation[2].push_back(xCoord[i+1]);
-                    biffurcation[3].push_back((double)(*(paramValue + 1)));
-                    i++;
-                }
             }
             else if((xCoord[i]<xCoord[i-1]) & (xCoord[i]< xCoord[i+1]))
             {
                 biffurcation[3].push_back(xCoord[i]);
                 biffurcation[2].push_back((double)(*paramValue));
-                if(xCoord[i+1]>xCoord[i+2])
-                {
-                    biffurcation[0].push_back(xCoord[i+1]);
-                    biffurcation[1].push_back((double)(*(paramValue + 1)));
-                    i++;
-                }
             }
         }
-        xCoord.clear();
-           
-      //  std::cout<< *paramValue<<" \n";
-
-    }
-    return biffurcation;
 }
 /*
     printBiffucationToFile:         Prints the matrix, result of the function "biffurcation"

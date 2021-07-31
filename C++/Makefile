@@ -4,7 +4,7 @@ all:
 
 run:
 	g++  -Wall ./source/biffurcation.cpp ./source/lyapunov.cpp ./source/plotting.cpp ./source/printing.cpp ./source/LinearAlgebra.cpp ./source/main.cpp ./source/penduli.cpp ./source/lorenz.cpp ./source/rungekutta4thSquare.cpp -o Lytest.o -lm
-	./Lytest.o
+	 ./Lytest.o
 clean:
 	find . -type f -executable -exec rm '{}' \;
 
