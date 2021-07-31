@@ -41,6 +41,17 @@ void printMatrix(std::vector<std::vector<double>>& matrix)
         std::cout<<"\n";
     }
 }
+void printMatrix(std::vector<std::vector<long double>>& matrix)
+{
+    for(uint i = 0; i < matrix.size(); i++)
+    {
+        for(uint j = 0; j < matrix[0].size(); j++)
+        {
+            std::cout<<matrix[i][j]<<" ";
+        }
+        std::cout<<"\n";
+    }
+}
 void printMatrixToFile(std::vector<std::vector<double>>& matrix, std::string fileName)
 {
     std::ofstream output;

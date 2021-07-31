@@ -19,8 +19,7 @@ void rungeKutta45(std::vector<double> (*function)(std::vector<double>, double),
                   double param, double step, int dimension,
                   double tol, double& stepNew);
 void completeRungeKutta45(std::vector<double> (*function)(std::vector<double>, double), 
-                          std::vector<double> InitialCoord, uint iterations,
-                          std::vector<std::vector<double>>& rk45Solution, 
+                          std::vector<double> InitialCoord,std::vector<std::vector<double>>& rk45Solution, 
                           double param, double step, int dimension,
                           double tol, double maxTime, std::vector<double>& hs);
 #endif

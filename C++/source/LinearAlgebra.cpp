@@ -118,3 +118,19 @@ std::vector<std::vector<double>> matMult(std::vector<std::vector<double>>& leftM
     return result;
  
 }
+void scaleVector(std::vector<double>& v, std::vector<double>& result, double scale)
+{
+    // std::vector<double> result(v.size());
+    for(uint i = 0; i < v.size();i++)
+    {
+        result[i] = scale*v[i];
+    }
+}
+void sumVectors(std::vector<double>& v1, std::vector<double>& v2, std::vector<double>& result)
+{
+    for(uint i = 0; i < v1.size();i++)
+    {
+        result[i] = v1[i] + v2[i];
+    }
+
+}

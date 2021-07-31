@@ -10,6 +10,8 @@ inline long double dotProduct(std::vector<double> &v1, std::vector<double> &v2);
 long double normOf(std::vector<double> &vec);
 inline double normSquare(std::vector<double> &vec);
 inline void normalize(std::vector<double> &vec);
+void scaleVector(std::vector<double>& v, std::vector<double>& result, double scale);
+void sumVectors(std::vector<double>& v1, std::vector<double>& v2, std::vector<double>& result);
 
 //Operations on matrices
 void gramSchmidt(std::vector<std::vector<double>>& matrix);
