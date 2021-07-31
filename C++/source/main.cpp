@@ -129,12 +129,12 @@ int main()
     // std::cout<<"error : "<< rk5[0]<<", "<<rk5[1]<<", "<<rk5[2]<<"\n";
     // std::cout<<"rk4 velho: "<< rk4s[0]<<", "<<rk4s[1]<<", "<<rk4s[2]<<"\n";
     // std::cout<<"novo step: "<<stepNew;
-    double time[2] = {0.0,10.0};
+    double time[2] = {0.0,100.0};
     // int iterations = (int)(fabs(time[1]-time[0])/0.1);
     std::vector<std::vector<double>> A;// (iterations, std::vector<double> (integrationAux.size()+1));
-    laypunovVaringParameter(lorenz,lorenzJacobian,time,integrationAux,1e-2,0.8,0,3,A);
+    laypunovVaringParameter(lorenz,lorenzJacobian,time,integrationAux,1e-6,0.5,0,3,A);
     printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
-    
+
     // std::vector<long double>  lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,1e-6,100,0.01, 28.0);
     // std::cout<<"lyapunov numbers: "<<lya[0]<<", "<<lya[1]<<", "<<lya[2]<<"\n";
     // std::cout<<"lyapunov exponents: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n";
