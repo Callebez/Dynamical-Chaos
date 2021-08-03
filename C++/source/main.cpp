@@ -10,7 +10,7 @@
 #include "../include/plotting.hpp"
 
 #include "../include/LyapExp.hpp"
-std::vector<double> lorenz(std::vector<double> coord, double rho)
+/*std::vector<double> lorenz(std::vector<double> coord, double rho)
 {
     std::vector<double> coord_dot(3,0);
     coord_dot[0] = 10.0*(coord[1]- coord[0]);
@@ -18,7 +18,7 @@ std::vector<double> lorenz(std::vector<double> coord, double rho)
     coord_dot[2] = coord[0]*coord[1] - 8.0/3.0*coord[2];
     return coord_dot;
     
-}
+}*/
 #include "../include/LyapExp.hpp"
 #include "../include/lorenz.hpp"
 #include "../include/printing.hpp"
@@ -121,7 +121,7 @@ std::vector<double> lorenz(std::vector<double> coord, double rho)
 // }
 int main()
 {
-    std::vector<double> integrationAux = {1.0,2.0,3.0};
+    std::vector<double> integrationAux = {6.0,1.0,0.0,1.0};
     // double time[2] = {0,10.0};
     // std::vector<std::vector<double>> rk45 (100000, std::vector<double>(3,0));
     // double time;
@@ -144,8 +144,8 @@ int main()
     double time[2] = {0.0,100.0};
     // int iterations = (int)(fabs(time[1]-time[0])/0.1);
     std::vector<std::vector<double>> A;// (iterations, std::vector<double> (integrationAux.size()+1));
-    laypunovVaringParameter(lorenz,lorenzJacobian,time,integrationAux,1e-6,0.5,0,3,A);
-    printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
+    laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-6,0.01,0,4,A);
+    printMatrixToFile(A,"arquivoTesteLyapunovVsGamma.dat");
 
     // std::vector<long double>  lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,1e-6,100,0.01, 28.0);
     // std::cout<<"lyapunov numbers: "<<lya[0]<<", "<<lya[1]<<", "<<lya[2]<<"\n";
