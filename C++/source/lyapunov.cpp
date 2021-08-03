@@ -1,5 +1,5 @@
 
-#include "../include/LyapExp.hpp"
+#include "../include/lyapunov.hpp"
 #include "../include/LinearAlgebra.hpp"
 #include "../include/printing.hpp"
 #include "../include/plotting.hpp"
