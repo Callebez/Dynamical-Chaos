@@ -7,19 +7,7 @@
 #include "../include/plotting.hpp"
 #include "../include/biffurcation.hpp"
 #include "../include/penduli.hpp"
-#include "../include/plotting.hpp"
-
-#include "../include/LyapExp.hpp"
-/*std::vector<double> lorenz(std::vector<double> coord, double rho)
-{
-    std::vector<double> coord_dot(3,0);
-    coord_dot[0] = 10.0*(coord[1]- coord[0]);
-    coord_dot[1] = coord[0]*rho- coord[0]*coord[2] - coord[1];
-    coord_dot[2] = coord[0]*coord[1] - 8.0/3.0*coord[2];
-    return coord_dot;
-    
-}*/
-#include "../include/LyapExp.hpp"
+#include "../include/lyapunov.hpp"
 #include "../include/lorenz.hpp"
 #include "../include/printing.hpp"
 
@@ -121,7 +109,7 @@
 // }
 int main()
 {
-    std::vector<double> integrationAux = {6.0,1.0,0.0,1.0};
+    std::vector<double> integrationAux = {6.0,0.0,1.0,1.0};
     // double time[2] = {0,10.0};
     // std::vector<std::vector<double>> rk45 (100000, std::vector<double>(3,0));
     // double time;
@@ -141,17 +129,19 @@ int main()
     // std::cout<<"error : "<< rk5[0]<<", "<<rk5[1]<<", "<<rk5[2]<<"\n";
     // std::cout<<"rk4 velho: "<< rk4s[0]<<", "<<rk4s[1]<<", "<<rk4s[2]<<"\n";
     // std::cout<<"novo step: "<<stepNew;
-    double time[2] = {0.0,100.0};
+    double time[2] = {0.0,1.0};
     // int iterations = (int)(fabs(time[1]-time[0])/0.1);
     std::vector<std::vector<double>> A;// (iterations, std::vector<double> (integrationAux.size()+1));
-    laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-6,0.01,0,4,A);
-    printMatrixToFile(A,"arquivoTesteLyapunovVsGamma.dat");
+    laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-8,0.01,4,A);
+    printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
 
-    // std::vector<long double>  lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,1e-6,100,0.01, 28.0);
-    // std::cout<<"lyapunov numbers: "<<lya[0]<<", "<<lya[1]<<", "<<lya[2]<<"\n";
-    // std::cout<<"lyapunov exponents: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n";
-    // std::cout<<"their sum : "<< lya[0]+lya[1]+lya[2];
-  
+    // std::vector<long double>  lya = lyapunovSpectrum(quantumPendulum,classicalPendulumJacobian,integrationAux,1e-6,100,0.001, 1e-4);
+    // std::cout<<"lyapunov numbers: "<<lya[0]<<", "<<lya[1]<<", "<<lya[2]<<","<<lya[3]<<"\n";
+    // std::cout<<"lyapunov exponents: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<", "<<exp(lya[3])<<"\n";
+    // std::cout<<"their sum : "<< lya[0]+lya[1]+lya[2]+lya[3];
+
+    // std::vector<double> qpendulum = quantumPendulum(integrationAux,0.1);
+    // std::cout<<qpendulum[0]<<", "<<qpendulum[1]<<", "<<qpendulum[2]<<", "<<qpendulum[3]<<"\n";
     // std::vector<std::vector<double>> biff = biffurcation(lorenz, time, integrationAux, 0.1,0.001,2,3);
 
     // printBiffucationToFile(biff,"biffucationLorenzTesteRK45");

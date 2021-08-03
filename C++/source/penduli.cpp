@@ -61,3 +61,8 @@ double flutuation(double x, double y, double gamma)
                         pow((1.0 + 0.3345167463*(pow(x,2.0) +  pow(y,2.0)) +
                         0.09871707060*(pow(x,4.0) +  pow(y,4.0))),2.0)));
 }
+
+
+
+
+
