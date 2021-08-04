@@ -2,10 +2,10 @@ CC := g++
 CFLAGS := -g -Wall -lm 
 
 all:
-	g++ -Wall  ./source/biffurcation.cpp ./source/main.cpp ./source/systems.cpp ./source/rungekutta4thSquare.cpp ./source/LyapExp.cpp ./source/FastLyap.cpp -o Lytest.o -lm
+	$(CC) $(CFLAGS)  ./source/biffurcation.cpp ./source/lyapunov.cpp ./source/plotting.cpp ./source/printing.cpp ./source/LinearAlgebra.cpp ./source/main.cpp ./source/penduli.cpp ./source/lorenz.cpp ./source/rungekutta4thSquare.cpp ./source/discretelyap.cpp -o Lytest.o 
 
 run: 
-	$(CC) $(CFLAGS)  ./source/biffurcation.cpp ./source/lyapunov.cpp ./source/plotting.cpp ./source/printing.cpp ./source/LinearAlgebra.cpp ./source/main.cpp ./source/penduli.cpp ./source/lorenz.cpp ./source/rungekutta4thSquare.cpp -o Lytest.o 
+	$(CC) $(CFLAGS)  ./source/biffurcation.cpp ./source/lyapunov.cpp ./source/plotting.cpp ./source/printing.cpp ./source/LinearAlgebra.cpp ./source/main.cpp ./source/penduli.cpp ./source/lorenz.cpp ./source/rungekutta4thSquare.cpp ./source/discretelyap.cpp -o Lytest.o 
 	 ./Lytest.o
 clean:
 	find . -type f -executable -exec rm '{}' \;

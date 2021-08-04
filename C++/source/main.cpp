@@ -10,6 +10,7 @@
 #include "../include/lyapunov.hpp"
 #include "../include/lorenz.hpp"
 #include "../include/printing.hpp"
+#include "../include/discretelyap.hpp"
 
 
 
@@ -132,8 +133,13 @@ int main()
     double time[2] = {0.0,1.0};
     // int iterations = (int)(fabs(time[1]-time[0])/0.1);
     std::vector<std::vector<double>> A;// (iterations, std::vector<double> (integrationAux.size()+1));
-    laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-8,0.01,4,A);
+    
+    /*laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-8,0.01,4,A);
     printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
+    */
+    A = discreteLyap(integrationAux, 0, 0.001, 10000,1);
+    printMatrixToFile(A,"teste.dat");
+    plot2D("teste","teste","teste","teste");
 
     // std::vector<long double>  lya = lyapunovSpectrum(quantumPendulum,classicalPendulumJacobian,integrationAux,1e-6,100,0.001, 1e-4);
     // std::cout<<"lyapunov numbers: "<<lya[0]<<", "<<lya[1]<<", "<<lya[2]<<","<<lya[3]<<"\n";
