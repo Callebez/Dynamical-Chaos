@@ -137,7 +137,7 @@ int main()
     /*laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-8,0.01,4,A);
     printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
     */
-    A = discreteLyap(integrationAux, 0, 0.001, 10000,0);
+    A = discreteLyap(integrationAux, 1, 0.001, 100,0);
     printMatrixToFile(A,"teste.dat");
     plot2D("teste","teste","teste","teste");
 
