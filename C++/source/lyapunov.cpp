@@ -86,7 +86,7 @@ void laypunovVaringParameter(std::vector<double>(*function)(std::vector<double>,
     {
         lyapunovExponents.emplace_back( lyapunovSpectrum(function,jacobian,initialCond,tol,10,integrationStep,*paramValue));
     }
-    for(int i = 0; i < param.size();i++)
+    for(int i = 0; i < (int)param.size();i++)
     {
         lyapunovSpectrumRange[i][0] = param[i];
 
