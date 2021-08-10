@@ -1,6 +1,7 @@
 #include"../include/discretelyap.hpp"
+#include"../include/LinearAlgebra.hpp"
 
-std::vector<std::vector<double>> discreteLyap(std::vector<double> initialcond,double gamma, double tau, int iteration, double k=1)
+std::vector<std::vector<double>> discreteSys(std::vector<double> initialcond,double gamma, double tau, int iteration, double k=1)
 {
     //Consider (x,y,px,py)
     std::vector < std::vector<double>> auxsys (iteration,std::vector<double>(initialcond.size()));
@@ -18,6 +19,35 @@ std::vector<std::vector<double>> discreteLyap(std::vector<double> initialcond,do
         auxsys[i][3]=(1-gamma*tau)*auxsys[i-1][3]+forcey*tau+flu2;
     }
     return auxsys;
+}
+std::vector<long double> discreteLyap(std::vector<double> (*function)(std::vector<double>, double),
+                                                   std::vector<std::vector<double>> (*jacobian)(std::vector<double>&, double,double),
+                                                   std::vector<std::vector<double>> trajectory, double gamma, double tau)
+{
+    std::vector<long double> lyapunovExponents (trajectory.size(),0);
+    std::vector<double> coord;
+    std::vector<std::vector<double>> J = identityMatrix(trajectory[0].size());
+    std::vector<std::vector<double>> w = identityMatrix(trajectory[0].size());
+    double time = tau * trajectory.size();
+    for (uint i = 0; i < trajectory.size(); i++)
+    {
+        coord = trajectory[i];
+        J = jacobian(coord, gamma, tau);
+        w = matMult(J, w);
+        transpostSquare(w);
+        gramSchmidt(w);
+        for(uint j = 0; j < trajectory[0].size(); j++)
+        {
+            lyapunovExponents[j] +=  log(normOf(w[j]));
+        }
+        gramSchmidtNormal(w);
+        transpostSquare(w);
+    }
+    for(uint j = 0; j < trajectory.size(); j++)
+    {
+        lyapunovExponents[j] = lyapunovExponents[j]/(time);
+    }
+    return lyapunovExponents;
 }
 double GaussRand()
 {
