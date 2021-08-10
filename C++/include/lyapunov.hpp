@@ -13,6 +13,6 @@ std::vector<long double> lyapunovSpectrum(std::vector<double> (*function)(std::v
 void laypunovVaringParameter(std::vector<double>(*function)(std::vector<double>, double),
                                             std::vector<std::vector<double>> (*jacobian)(std::vector<double>&, double,double), 
                                             double paramRange[2], std::vector<double> initialCond, double tol,
-                                            double paramStep, int systemDimension,
+                                            double paramStep, int systemDimension, double time,
                                             std::vector<std::vector<double>>& lyapunovSpectrumRange);
 #endif

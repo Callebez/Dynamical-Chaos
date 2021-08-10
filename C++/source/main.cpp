@@ -131,11 +131,15 @@ int main()
     // std::cout<<"novo step: "<<stepNew;
     double time[2] = {0.0,1.0};
     // int iterations = (int)(fabs(time[1]-time[0])/0.1);
-    std::vector<std::vector<double>> A;// (iterations, std::vector<double> (integrationAux.size()+1));
-    laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-8,0.01,4,A);
-    printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
+    // std::vector<std::vector<double>> A;// (iterations, std::vector<double> (integrationAux.size()+1));
+    // laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-6,0.01,4,A);
+    // printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
 
-    // std::vector<long double>  lya = lyapunovSpectrum(quantumPendulum,classicalPendulumJacobian,integrationAux,1e-6,100,0.001, 1e-4);
+    //  std::vector<std::vector<double>> B=biffurcation(quantumPendulum,time,integrationAux,0.01,0,4);
+    // printBiffucationToFile(B,"biffurcationQuantumPendulum");
+    // plotBiffucation("biffurcationQuantumPendulum","Quantum Pendulum","gamma","");
+
+    // std::vector<long double>  lya = lyapunovSpectrum(quantumPendulum,classicalPendulumJacobian,integrationAux,1e-6,1000,0.001, 0);
     // std::cout<<"lyapunov numbers: "<<lya[0]<<", "<<lya[1]<<", "<<lya[2]<<","<<lya[3]<<"\n";
     // std::cout<<"lyapunov exponents: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<", "<<exp(lya[3])<<"\n";
     // std::cout<<"their sum : "<< lya[0]+lya[1]+lya[2]+lya[3];
