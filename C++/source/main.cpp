@@ -130,16 +130,17 @@ int main()
     // std::cout<<"error : "<< rk5[0]<<", "<<rk5[1]<<", "<<rk5[2]<<"\n";
     // std::cout<<"rk4 velho: "<< rk4s[0]<<", "<<rk4s[1]<<", "<<rk4s[2]<<"\n";
     // std::cout<<"novo step: "<<stepNew;
-    double time[2] = {0.0,1.0};
+    //double time[2] = {0.0,1.0};
     // int iterations = (int)(fabs(time[1]-time[0])/0.1);
     std::vector<std::vector<double>> A;// (iterations, std::vector<double> (integrationAux.size()+1));
     
     /*laypunovVaringParameter(quantumPendulum,classicalPendulumJacobian,time,integrationAux,1e-8,0.01,4,A);
     printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
     */
-    A = discreteLyap(integrationAux, 1, 0.001, 100,0);
-    printMatrixToFile(A,"teste.dat");
-    plot2D("teste","teste","teste","teste");
+    //A = discreteClassLyap(integrationAux, 1, 0.1, 500,1);
+    A = discreteLyap(integrationAux, 0.1, 0.0001, 1000000,1);
+    printMatrixToFile(A,"Discrete/teste.dat");
+    plot2D("Discrete/teste","Discrete/teste","teste","teste");
 
     // std::vector<long double>  lya = lyapunovSpectrum(quantumPendulum,classicalPendulumJacobian,integrationAux,1e-6,100,0.001, 1e-4);
     // std::cout<<"lyapunov numbers: "<<lya[0]<<", "<<lya[1]<<", "<<lya[2]<<","<<lya[3]<<"\n";

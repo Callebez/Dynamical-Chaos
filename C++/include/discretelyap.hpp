@@ -11,3 +11,6 @@ double complicate(double x, double y, double gamma,double tau  );
 inline double rho (double x, double y);
 inline double funcrho1 (double x, double y);
 inline double funcrho2 (double x, double y);
+double wolfram(double x, double y);
+double laplace(double x, double y);
+double u(double x, double y);
