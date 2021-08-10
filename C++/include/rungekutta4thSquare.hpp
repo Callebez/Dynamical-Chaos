@@ -17,9 +17,9 @@ std::vector<double> rungeKutta4thSquarePertubation(std::vector<double> (*functio
 void rungeKutta45(std::vector<double> (*function)(std::vector<double>, double), 
                   std::vector<double> &coord,  double& error,
                   double param, double step, int dimension,
-                  double tol, double& stepNew);
+                  double tol, double& stepNew, bool& repeat);
 void completeRungeKutta45(std::vector<double> (*function)(std::vector<double>, double), 
                           std::vector<double> InitialCoord,std::vector<std::vector<double>>& rk45Solution, 
                           double param, double step, int dimension,
-                          double tol, double maxTime, std::vector<double>& hs);
+                          double tol, double maxTime, std::vector<double>& timeEvolution);
 #endif

@@ -73,7 +73,7 @@ std::vector<double> updateCoord(std::vector<double> coord, std::vector<double> i
 void rungeKutta45(std::vector<double> (*function)(std::vector<double>, double), 
                   std::vector<double> &coord,  double& error,
                   double param, double step, int dimension,
-                  double tol, double& stepNew)
+                  double tol, double& stepNew, bool& repeat)
 {
     // double a2 = 0.25;
     // double a3 = 0.375;
@@ -173,18 +173,20 @@ void rungeKutta45(std::vector<double> (*function)(std::vector<double>, double),
     error = normOf(AuxError);
     if(error>tol)
     {
+        stepNew = step*pow(tol/(2*error), 0.2);
+        repeat = true;
         coord = coordTemp;
-        stepNew = step/2.0;
     }
-    else if(error<0.1*tol)
+    else
     {
-        stepNew = step*2.0;
+        stepNew = step*pow(tol/(2*error), 0.2);
+        repeat = false;
     }
 }
 void completeRungeKutta45(std::vector<double> (*function)(std::vector<double>, double), 
                           std::vector<double> InitialCoord,std::vector<std::vector<double>>& rk45Solution, 
                           double param, double step, int dimension,
-                          double tol, double maxTime, std::vector<double>& hs)
+                          double tol, double maxTime, std::vector<double>& timeEvolution)
 {
    
     double stepNew, error;
@@ -192,38 +194,29 @@ void completeRungeKutta45(std::vector<double> (*function)(std::vector<double>, d
     rk45Solution.emplace_back(InitialCoord);
   
     double time = 0;
+    bool repeat;
     while(time < maxTime)
     {
-        InitialCoord = tempCoord;
-        rungeKutta45(function, tempCoord, error ,param, step, dimension, tol, stepNew);
-        if(tempCoord==InitialCoord)
+        // InitialCoord = tempCoord;
+        rungeKutta45(function, tempCoord, error ,param, step, dimension, tol, stepNew, repeat);
+        if(repeat)
         {
             step = stepNew;
-            rungeKutta45(function, tempCoord, error ,param, step, dimension, tol, stepNew);
-            rk45Solution.emplace_back(tempCoord);
-            time += step;
-            hs.emplace_back(step);
-
-        }
-        else if(stepNew == 2.0*step)
-        {
-            rk45Solution.emplace_back(tempCoord);
-            hs.emplace_back(step);
-            time+=step;
-            step = stepNew;
-            rungeKutta45(function, tempCoord, error ,param, step, dimension, tol, stepNew);
+            rungeKutta45(function, tempCoord, error ,param, step, dimension, tol, stepNew, repeat);
             rk45Solution.emplace_back(tempCoord);
             time+=step;
-            hs.emplace_back(step);
-
+            timeEvolution.emplace_back(step);
         }
         else
         {
-            rk45Solution.emplace_back(tempCoord);
             time+=step;
-            hs.emplace_back(step);
+            rk45Solution.emplace_back(tempCoord);
+            timeEvolution.emplace_back(step);
+            step = stepNew; 
+            rungeKutta45(function, tempCoord, error ,param, step, dimension, tol, stepNew, repeat);
+            time+=step;
+            rk45Solution.emplace_back(tempCoord);
+            timeEvolution.emplace_back(step);
         }
-        // std::cout<<"integrou aqui\n";
-
     }
 }

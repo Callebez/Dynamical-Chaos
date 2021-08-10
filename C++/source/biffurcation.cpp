@@ -41,7 +41,7 @@ std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std
 
     for(paramValue = param.begin(); paramValue<param.end(); paramValue++)
     {
-        completeRungeKutta45(function,initialCond, rk45, *paramValue,integrationStep,initialCond.size(),1e-2, 10, hs);
+        completeRungeKutta45(function,initialCond, rk45, *paramValue,integrationStep,initialCond.size(),1e-3, 100, hs);
 
         xCoord.resize(rk45.size());
         for(uint i = 0; i< rk45.size(); i++)
