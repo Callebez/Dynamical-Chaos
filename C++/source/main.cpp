@@ -138,7 +138,7 @@ int main()
     printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
     */
     //A = discreteClassLyap(integrationAux, 1, 0.1, 500,1);
-    A = discreteLyap(integrationAux, 0.1, 0.0001, 1000000,1);
+    A = discreteLyap(integrationAux, 0.1, 1e-3, 1e5,1);
     printMatrixToFile(A,"Discrete/teste.dat");
     plot2D("Discrete/teste","Discrete/teste","teste","teste");
 
