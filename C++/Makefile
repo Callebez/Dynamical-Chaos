@@ -5,7 +5,8 @@ CC 		:= g++
 CFLAGS 	:= -g -Wall -lm 
 
 all: $(target)
-
+run: $(target)
+	./$(target)
 deps := $(patsubst %.o, %.d, $(objs))
 # -include $(deps)
 DEPFLAGS = -MMD -MF $(@:.o=.d)
