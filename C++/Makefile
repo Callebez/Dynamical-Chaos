@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -g -Wall -lm 
+CFLAGS := -g -Wall -lm -pthread
 
 all:
 	$(CC) $(CFLAGS)  ./source/biffurcation.cpp ./source/lyapunov.cpp ./source/plotting.cpp ./source/printing.cpp ./source/LinearAlgebra.cpp ./source/main.cpp ./source/penduli.cpp ./source/lorenz.cpp ./source/rungekutta4thSquare.cpp ./source/discretelyap.cpp -o Lytest.o 
