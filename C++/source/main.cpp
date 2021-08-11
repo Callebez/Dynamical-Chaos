@@ -134,7 +134,8 @@ int main()
     // std::cout<<"error : "<< rk5[0]<<", "<<rk5[1]<<", "<<rk5[2]<<"\n";
     // std::cout<<"rk4 velho: "<< rk4s[0]<<", "<<rk4s[1]<<", "<<rk4s[2]<<"\n";
     // std::cout<<"novo step: "<<stepNew;
-    //double time[2] = {0.0,1.0};
+    // double time[2] = {0.0,1.0};
+
     // int iterations = (int)(fabs(time[1]-time[0])/0.1);
     //std::vector<std::vector<double>> A;// (iterations, std::vector<double> (integrationAux.size()+1));
     
