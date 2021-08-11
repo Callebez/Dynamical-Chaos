@@ -173,7 +173,7 @@ int main()
     //   gamma += 0.1;
     // }
 
-    std::vector<long double>  lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,1e-4,10,0.01, 28.0);
+    std::vector<long double>  lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,1e-4,100,0.01, 28.0);
     std::cout<<"lyapunov numbers: "<<lya[0]<<", "<<lya[1]<<", "<<lya[2]<<"\n";
     std::cout<<"lyapunov exponents: "<<exp(lya[0])<<", "<<exp(lya[1])<<", "<<exp(lya[2])<<"\n";
     std::cout<<"their sum : "<< lya[0]+lya[1]+lya[2];
