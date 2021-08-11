@@ -1,10 +1,13 @@
 #include<iostream>
 #include<fstream>
+#include<string.h>
+#include <stdio.h>
 #include<iterator> // for iterators
 #include<vector> // for vectors
 #include<cmath>
 #include<future>
 #include<thread>
+#include<chrono>
 // #include "../include/gnuplot-iostream.h"
 #include "../include/plotting.hpp"
 #include "../include/biffurcation.hpp"
@@ -14,8 +17,9 @@
 #include "../include/printing.hpp"
 #include "../include/discretelyap.hpp"
 
-void runge(std::vector<double> integrationAux, double tau, std::vector<long double> lya, double gamma);
+void runge(std::vector<double> integrationAux, double tau, double gamma);
 void discrete(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k,std::vector<long double> lya);
+void plt(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k, int i);
 
 // void allInOne(std::vector<double>(*function)(std::vector<double>, double),
 //                                         std::vector<std::vector<double>> (*jacobian)(std::vector<double>&,double),
@@ -147,28 +151,40 @@ int main()
     int iteration = 5e4;
     double k = 1;
     double gamma = 0;
-    std::vector<long double> lya[2];
-    for (int i = 0; i < 20;i++)
+    std::vector<long double> lyap[3];
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < 20; i++)
     {
-      std::thread task1(runge, integrationAux1, tau, lya[0],gamma);
-      std::thread task2(discrete, integrationAux2, tau, iteration, gamma, k, lya[1]);
+      //std::thread task1(runge, integrationAux1, tau, gamma);
+      //std::thread task2(runge, integrationAux1, tau, gamma+2);
+      //std::thread task3(runge, integrationAux1, tau, gamma+4);
+      //std::thread task1(discrete, integrationAux2, tau, iteration, gamma, k, lyap[0]);
+      //std::thread task2(discrete, integrationAux2, tau, iteration, gamma+2, k, lyap[1]);
+      //std::thread task3(discrete, integrationAux2, tau, iteration, gamma+4, k, lyap[2]);
+      std::thread task1(plt, integrationAux2, tau, iteration, gamma, k, i);
+      std::thread task2(plt, integrationAux2, tau, iteration, gamma+2, k, i+20);
+      std::thread task3(plt, integrationAux2, tau, iteration, gamma+4, k, i+40);
       task1.join();
       task2.join();
+      task3.join();
+      //task4.join();
+      //task2.join();
       /*std::cout << "For gamma = " << gamma << std::endl;
       lya[0] = lyapunovSpectrum(classicalPendulum, classicalPendulumJacobian, integrationAux1, 1e-6, 100, tau, 1e-4);
       std::cout << std::endl;
       std::cout << "Runge lyapunov numbers: " << lya[0][0] << ", " << lya[0][1] << ", " << lya[0][2] << "," << lya[0][3] << "\n";
       std::cout << "Runge lyapunov exponents: " << exp(lya[0][0]) << ", " << exp(lya[0][1]) << ", " << exp(lya[0][2]) << ", " << exp(lya[0][3]) << "\n";
       */
-      //std::vector<std::vector<double>> A;
-      /*A = discreteSys(integrationAux1, gamma, tau, iteration, k);
-      lya[1] = discreteLyap(classicalPendulum, classicalPendulumJacobian, A, gamma, tau);
+      /*std::vector<std::vector<double>> A;
+      A = discreteSys(integrationAux1, gamma, tau, iteration, k);
+      lyap[1] = discreteLyap(classicalPendulum, classicalPendulumJacobian, A, gamma, tau);
 
       printMatrixToFile(A, "Discrete/teste.dat");
-      //plot2D("Discrete/teste", "Discrete/teste", "teste", "teste");
+      plot2D("Discrete/teste", "Discrete/teste", "teste", "teste");
       std::cout << std::endl;
-      std::cout << "Discrete lyapunov numbers: " << lya[1][0] << ", " << lya[1][1] << ", " << lya[1][2] << "," << lya[1][3] << "\n";
-      std::cout << "Discrete lyapunov exponents: " << exp(lya[1][0]) << ", " << exp(lya[1][1]) << ", " << exp(lya[1][2]) << ", " << exp(lya[1][3]) << "\n";
+      std::cout << "Discrete lyapunov numbers: " << lyap[1][0] << ", " << lyap[1][1] << ", " << lyap[1][2] << "," << lyap[1][3] << "\n";
+      std::cout << "Discrete lyapunov exponents: " << exp(lyap[1][0]) << ", " << exp(lyap[1][1]) << ", " << exp(lyap[1][2]) << ", " << exp(lyap[1][3]) << "\n";
+      std::cout << "Discrete lyapunov sum : " << lyap[1][0] + lyap[1][1] + lyap[1][2] + lyap[1][3] << std::endl;
       */gamma += 0.1;
     }
 
@@ -181,29 +197,44 @@ int main()
     // printBiffucationToFile(biff,"biffucationLorenzTesteRK45");
     // plotBiffucation("biffucationLorenzTesteRK45","Lorenz System", " {/Symbol r}", " ");
     // plot2D("./outputs/images/biffucationLorenz","./outputs/txt/biffucationLorenzmax.dat", "max points"," plot ./outputs/txt/biffucationLorenzmin.dat w dots title \'min points\'  set title \'Biffurcation Diagram for the Lorenz system\'" );
-
-    return 0;    
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << std::endl << duration.count() << std::endl;
+    return 0;
 }
 
-void runge(std::vector<double> integrationAux, double tau, std::vector<long double> lya, double gamma)
+void runge(std::vector<double> integrationAux, double tau, double gamma)
 {
-  std::cout << "For gamma = " << gamma << std::endl;
-  lya = lyapunovSpectrum(classicalPendulum, classicalPendulumJacobian, integrationAux, 1e-6, 100, tau, 1e-4);
+  std::vector<long double>lya;
+  lya = lyapunovSpectrum(quantumPendulum, classicalPendulumJacobian, integrationAux, 1e-6, 100, tau, gamma);
   std::cout << std::endl;
+  std::cout << "For gamma = " << gamma << std::endl;
   std::cout << "Runge lyapunov numbers: " << lya[0] << ", " << lya[1] << ", " << lya[2] << "," << lya[3] << "\n";
   std::cout << "Runge lyapunov exponents: " << exp(lya[0]) << ", " << exp(lya[1]) << ", " << exp(lya[2]) << ", " << exp(lya[3]) << "\n";
+  std::cout << "Runge lyapunov sum : " << lya[0] + lya[1] + lya[2] + lya[3] << std:: endl;
   //std::cout << "algo" << std::endl;
 }
-void discrete(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k,std::vector<long double> lya)
+void discrete(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k, std::vector<long double> lya)
 {
   std::vector<std::vector<double>> A;
   A = discreteSys(integrationAux, gamma, tau, iteration, k);
-  lya = discreteLyap(classicalPendulum, classicalPendulumJacobian, A, gamma, tau);
+  lya = discreteLyap(quantumPendulum, classicalPendulumJacobian, A, gamma, tau);
 
   printMatrixToFile(A, "Discrete/teste.dat");
   //plot2D("Discrete/teste", "Discrete/teste", "teste", "teste");
   std::cout << std::endl;
   std::cout << "Discrete lyapunov numbers: " << lya[0] << ", " << lya[1] << ", " << lya[2] << "," << lya[3] << "\n";
   std::cout << "Discrete lyapunov exponents: " << exp(lya[0]) << ", " << exp(lya[1]) << ", " << exp(lya[2]) << ", " << exp(lya[3]) << "\n";
+  std::cout << "Discrete lyapunov sum : " << lya[0] + lya[1] + lya[2] + lya[3] << std::endl;
   //std::cout << "anda mal" << std::endl;
+}
+void plt(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k,int i)
+{
+  std::vector<std::vector<double>> A;
+  std::string a = std::to_string(i);
+  char* b[1];
+  A = discreteSys(integrationAux, gamma, tau, iteration, k);
+  printMatrixToFile(A, "Discrete/teste"+std::to_string(i)+".dat");
+  plot2D("Discrete/teste", "Discrete/teste", "teste", "teste");
+
 }
