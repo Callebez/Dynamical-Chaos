@@ -17,8 +17,8 @@
 #include "../include/printing.hpp"
 #include "../include/discretelyap.hpp"
 
-void runge(std::vector<double> integrationAux, double tau, double gamma);
-void discrete(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k,std::vector<long double> lya);
+void runge(std::vector<double> integrationAux, double tau, double gamma,std::vector<long double> &lya);
+void discrete(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k,std::vector<long double> &lya);
 void plt(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k, int i);
 
 // void allInOne(std::vector<double>(*function)(std::vector<double>, double),
@@ -147,28 +147,35 @@ int main()
     printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
     */
     //A = discreteClassLyap(integrationAux, 1, 0.1, 500,1);
-    double tau = 1e-3;
-    int iteration = 5e4;
+    double tau = 5e-3;
+    int iteration = 1e5;
     double k = 1;
     double gamma = 0;
-    std::vector<long double> lyap[3];
+    std::vector<long double> lyap[5];
+    std::vector<double> max (integrationAux1.size(), 0);
+    std::vector<double> min (integrationAux1.size(), 0);
     auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 20; i++)
     {
-      //std::thread task1(runge, integrationAux1, tau, gamma);
-      //std::thread task2(runge, integrationAux1, tau, gamma+2);
-      //std::thread task3(runge, integrationAux1, tau, gamma+4);
-      //std::thread task1(discrete, integrationAux2, tau, iteration, gamma, k, lyap[0]);
-      //std::thread task2(discrete, integrationAux2, tau, iteration, gamma+2, k, lyap[1]);
-      //std::thread task3(discrete, integrationAux2, tau, iteration, gamma+4, k, lyap[2]);
-      std::thread task1(plt, integrationAux2, tau, iteration, gamma, k, i);
-      std::thread task2(plt, integrationAux2, tau, iteration, gamma+2, k, i+20);
-      std::thread task3(plt, integrationAux2, tau, iteration, gamma+4, k, i+40);
+      std::cout << gamma << std::endl;
+      //std::thread task1(runge, integrationAux1, tau, gamma, std::ref(lyap[0]));
+      //std::thread task2(runge, integrationAux1, tau, gamma, std::ref(lyap[1]));
+      //std::thread task3(runge, integrationAux1, tau, gamma, std::ref(lyap[2]));
+      //std::thread task4(runge, integrationAux1, tau, gamma, std::ref(lyap[3]));
+      //std::thread task5(runge, integrationAux1, tau, gamma, std::ref(lyap[4]));
+      std::thread task1(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[0]));
+      //std::thread task2(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[1]));
+      //std::thread task3(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[2]));
+      //std::thread task4(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[3]));
+      //std::thread task5(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[4]));
+      //std::thread task1(plt, integrationAux2, tau, iteration, gamma, k, i);
+      //std::thread task2(plt, integrationAux2, tau, iteration, gamma+2, k, i+20);
+      //std::thread task3(plt, integrationAux2, tau, iteration, gamma+4, k, i+40);
       task1.join();
-      task2.join();
-      task3.join();
-      //task4.join();
       //task2.join();
+      //task3.join();
+      //task4.join();
+      //task5.join();
       /*std::cout << "For gamma = " << gamma << std::endl;
       lya[0] = lyapunovSpectrum(classicalPendulum, classicalPendulumJacobian, integrationAux1, 1e-6, 100, tau, 1e-4);
       std::cout << std::endl;
@@ -203,9 +210,8 @@ int main()
     return 0;
 }
 
-void runge(std::vector<double> integrationAux, double tau, double gamma)
+void runge(std::vector<double> integrationAux, double tau, double gamma,std::vector<long double>&lya)
 {
-  std::vector<long double>lya;
   lya = lyapunovSpectrum(quantumPendulum, classicalPendulumJacobian, integrationAux, 1e-6, 100, tau, gamma);
   std::cout << std::endl;
   std::cout << "For gamma = " << gamma << std::endl;
@@ -214,7 +220,7 @@ void runge(std::vector<double> integrationAux, double tau, double gamma)
   std::cout << "Runge lyapunov sum : " << lya[0] + lya[1] + lya[2] + lya[3] << std:: endl;
   //std::cout << "algo" << std::endl;
 }
-void discrete(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k, std::vector<long double> lya)
+void discrete(std::vector<double> integrationAux, double tau, int iteration, double gamma, double k, std::vector<long double> &lya)
 {
   std::vector<std::vector<double>> A;
   A = discreteSys(integrationAux, gamma, tau, iteration, k);

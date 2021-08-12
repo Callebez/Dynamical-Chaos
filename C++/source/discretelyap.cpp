@@ -32,6 +32,10 @@ std::vector<long double> discreteLyap(std::vector<double> (*function)(std::vecto
     for (uint i = 0; i < trajectory.size(); i++)
     {
         coord = trajectory[i];
+        if (i%5000==0)
+        {
+            std::cout << coord[0] << "   " << coord[1] << "   " << coord[2] << "   " << coord[3] << std::endl;
+        }
         J = jacobian(coord, gamma, tau);
         w = matMult(J, w);
         transpostSquare(w);
