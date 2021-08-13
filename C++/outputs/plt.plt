@@ -1,4 +1,5 @@
 set terminal png
+set style line lc "orange"
 set output './images/Gamma-Lyap-Exp.png'
 set xlabel "Gamma"
 set ylabel "Lyapunov Exponent"

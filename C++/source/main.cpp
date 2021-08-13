@@ -148,7 +148,7 @@ int main()
     */
     //A = discreteClassLyap(integrationAux, 1, 0.1, 500,1);
     double tau = 1e-4;
-    int iteration = 1e5;
+    int iteration = 5e5;
     double k = 1;
     double gamma = 0;
     std::vector<long double> lyap[5];
@@ -156,12 +156,22 @@ int main()
 
     std::vector<double> max (integrationAux1.size(), 0);
     std::vector<double> min (integrationAux1.size(), 0);
-    std::ofstream lyapexp("outputs/txt/Gamma-Lyapunov-exponents2.dat");
-    std::ofstream lyapnum("outputs/txt/Gamma-Lyapunov-numbers2.dat");
-    std::ofstream lyapsum("outputs/txt/Gamma-Lyapunov-sum2.dat");
+    std::ofstream lyapexp("outputs/txt/Gamma-Lyapunov-exponents3.dat");
+    std::ofstream lyapnum("outputs/txt/Gamma-Lyapunov-numbers3.dat");
+    std::ofstream lyapsum("outputs/txt/Gamma-Lyapunov-sum3.dat");
 
     auto start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < 125; i++)
+    for (int i = 0; i < 51;i++)
+    {
+      std::thread task1(plt, integrationAux1, tau, iteration, gamma, k, i);
+      std::thread task2(plt, integrationAux1, tau, iteration, gamma, k, i+50);
+      std::thread task3(plt, integrationAux1, tau, iteration, gamma, k, i+100);
+      task1.join();
+      task2.join();
+      task3.join();
+      gamma += 0.01;
+    }
+    for (int i = 0; i < 151; i++)
     {
       std::cout << gamma << std::endl;
       lyapexp << gamma;
@@ -207,7 +217,7 @@ int main()
       }
       lyapexp << std::endl;
       lyapnum << std::endl;
-      lyapsum << lyapunovexponent[0] + lyapunovexponent[1] + lyapunovexponent[2] + lyapunovexponent[3] << std::endl;
+      lyapsum << "   " << lyapunovexponent[0] + lyapunovexponent[1] + lyapunovexponent[2] + lyapunovexponent[3] << std::endl;
       lyapunovexponent[0] = 0;
       lyapunovexponent[1] = 0;
       lyapunovexponent[2] = 0;
@@ -216,37 +226,24 @@ int main()
       /*std::cout << "For gamma = " << gamma << std::endl;
       lya[0] = lyapunovSpectrum(classicalPendulum, classicalPendulumJacobian, integrationAux1, 1e-6, 100, tau, 1e-4);
       std::cout << std::endl;
-      std::cout << "Runge lyapunov numbers: " << lya[0][0] << ", " << lya[0][1] << ", " << lya[0][2] << "," << lya[0][3] << "\n";
-      std::cout << "Runge lyapunov exponents: " << exp(lya[0][0]) << ", " << exp(lya[0][1]) << ", " << exp(lya[0][2]) << ", " << exp(lya[0][3]) << "\n";
       */
-      /*std::vector<std::vector<double>> A;
-      A = discreteSys(integrationAux1, gamma, tau, iteration, k);
-      lyap[1] = discreteLyap(classicalPendulum, classicalPendulumJacobian, A, gamma, tau);
-
-      printMatrixToFile(A, "Discrete/teste.dat");
-      plot2D("Discrete/teste", "Discrete/teste", "teste", "teste");
-      std::cout << std::endl;
-      std::cout << "Discrete lyapunov numbers: " << lyap[1][0] << ", " << lyap[1][1] << ", " << lyap[1][2] << "," << lyap[1][3] << "\n";
-      std::cout << "Discrete lyapunov exponents: " << exp(lyap[1][0]) << ", " << exp(lyap[1][1]) << ", " << exp(lyap[1][2]) << ", " << exp(lyap[1][3]) << "\n";
-      std::cout << "Discrete lyapunov sum : " << lyap[1][0] + lyap[1][1] + lyap[1][2] + lyap[1][3] << std::endl;
-      */
+      
       gamma += 0.01;
   }
 
-  // std::cout<<"their sum : "<< lya[0]+lya[1]+lya[2]+lya[3];
+      // std::cout<<"their sum : "<< lya[0]+lya[1]+lya[2]+lya[3];
 
-  // std::vector<double> qpendulum = quantumPendulum(integrationAux,0.1);
-  // std::cout<<qpendulum[0]<<", "<<qpendulum[1]<<", "<<qpendulum[2]<<", "<<qpendulum[3]<<"\n";
-  // std::vector<std::vector<double>> biff = biffurcation(lorenz, time, integrationAux, 0.1,0.001,2,3);
+      // std::vector<double> qpendulum = quantumPendulum(integrationAux,0.1);
+      // std::cout<<qpendulum[0]<<", "<<qpendulum[1]<<", "<<qpendulum[2]<<", "<<qpendulum[3]<<"\n";
+      // std::vector<std::vector<double>> biff = biffurcation(lorenz, time, integrationAux, 0.1,0.001,2,3);
 
-  // printBiffucationToFile(biff,"biffucationLorenzTesteRK45");
-  // plotBiffucation("biffucationLorenzTesteRK45","Lorenz System", " {/Symbol r}", " ");
-  // plot2D("./outputs/images/biffucationLorenz","./outputs/txt/biffucationLorenzmax.dat", "max points"," plot ./outputs/txt/biffucationLorenzmin.dat w dots title \'min points\'  set title \'Biffurcation Diagram for the Lorenz system\'" );
+      // printBiffucationToFile(biff,"biffucationLorenzTesteRK45");
+      // plotBiffucation("biffucationLorenzTesteRK45","Lorenz System", " {/Symbol r}", " ");
+      // plot2D("./outputs/images/biffucationLorenz","./outputs/txt/biffucationLorenzmax.dat", "max points"," plot ./outputs/txt/biffucationLorenzmin.dat w dots title \'min points\'  set title \'Biffurcation Diagram for the Lorenz system\'" );
   auto end = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-  std::cout << std::endl
-            << duration.count() << std::endl;
-  return 0;
+  std::cout << std::endl << "Duration" << duration.count() << std::endl;
+    return 0;
 }
 
 void runge(std::vector<double> integrationAux, double tau, double gamma,std::vector<long double>&lya)
@@ -277,9 +274,8 @@ void plt(std::vector<double> integrationAux, double tau, int iteration, double g
 {
   std::vector<std::vector<double>> A;
   std::string a = std::to_string(i);
-  char* b[1];
   A = discreteSys(integrationAux, gamma, tau, iteration, k);
   printMatrixToFile(A, "Discrete/teste"+std::to_string(i)+".dat");
-  plot2D("Discrete/teste", "Discrete/teste", "teste", "teste");
+  //plot2D("Discrete/teste", "Discrete/teste", "teste", "teste");
 
 }
