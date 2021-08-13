@@ -147,7 +147,7 @@ int main()
     printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
     */
     //A = discreteClassLyap(integrationAux, 1, 0.1, 500,1);
-    double tau = 5e-4;
+    double tau = 1e-4;
     int iteration = 1e5;
     double k = 1;
     double gamma = 0;
@@ -172,7 +172,7 @@ int main()
       //std::thread task3(runge, integrationAux1, tau, gamma, std::ref(lyap[2]));
       //std::thread task4(runge, integrationAux1, tau, gamma, std::ref(lyap[3]));
       //std::thread task5(runge, integrationAux1, tau, gamma, std::ref(lyap[4]));
-      for (int j = 0; j < 4; j++)
+      for (int j = 0; j < 20; j++)
       {
         std::thread task1(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[0]));
         std::thread task2(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[1]));
@@ -197,7 +197,7 @@ int main()
         }
         for (uint k = 0; k < integrationAux1.size(); k++)
         {
-          lyapunovexponent[k] /= 200;
+          lyapunovexponent[k] /= 1000;
         }
       }
       for (uint k = 0; k < integrationAux1.size(); k++)
