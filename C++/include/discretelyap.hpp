@@ -4,7 +4,7 @@
 #include<iostream>
 #include<random>
 #include<chrono>
-std::vector<std::vector<double>> discreteSys(std::vector<double> initialcond, double gamma, double tau, int iteration, double k);
+std::vector<std::vector<double>> discreteSys(std::vector<double> initialcond, double gamma, double tau, int iteration, double k=1);
 std::vector<long double> discreteLyap(std::vector<double> (*function)(std::vector<double>, double),
                                       std::vector<std::vector<double>> (*jacobian)(std::vector<double> &, double, double),
                                       std::vector<std::vector<double>> trajectory, double gamma, double tau);

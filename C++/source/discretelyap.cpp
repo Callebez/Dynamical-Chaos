@@ -1,7 +1,7 @@
 #include"../include/discretelyap.hpp"
 #include"../include/LinearAlgebra.hpp"
 
-std::vector<std::vector<double>> discreteSys(std::vector<double> initialcond,double gamma, double tau, int iteration, double k=1)
+std::vector<std::vector<double>> discreteSys(std::vector<double> initialcond,double gamma, double tau, int iteration, double k)
 {
     //Consider (x,y,px,py)
     std::vector < std::vector<double>> auxsys (iteration,std::vector<double>(initialcond.size()));
@@ -32,10 +32,10 @@ std::vector<long double> discreteLyap(std::vector<double> (*function)(std::vecto
     for (uint i = 0; i < trajectory.size(); i++)
     {
         coord = trajectory[i];
-        if (i%5000==0)
+        /*if (!std::isnan(coord[0]))
         {
-            std::cout << coord[0] << "   " << coord[1] << "   " << coord[2] << "   " << coord[3] << std::endl;
-        }
+            std::cout << i << "   " << coord[0] << "   " << coord[1] << "   " << coord[2] << "   " << coord[3] << std::endl;
+        }*/
         J = jacobian(coord, gamma, tau);
         w = matMult(J, w);
         transpostSquare(w);

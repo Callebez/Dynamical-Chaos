@@ -23,25 +23,24 @@ std::vector<std::vector<double>> classicalPendulumJacobian(std::vector<double>& 
     jacobian[1][2] = 0.0;
     jacobian[1][3] = step;
 
-    jacobian[2][0] = -step;
-    jacobian[2][1] = 0.0;
+    //jacobian[2][0] = -step;
+    //jacobian[2][1] = 0.0;
+    //jacobian[2][2] = 1.0;
+    //jacobian[2][3] = 0.0;
+    //
+    //jacobian[3][0] = 0.0;
+    //jacobian[3][1] = 0.0;
+    //jacobian[3][2] = -step;
+    //jacobian[3][3] = 1.0;
+
+    jacobian[2][0] = -step-coord[1]*coord[1]*step;
+    jacobian[2][1] = -2*coord[0]*coord[1]*step;
     jacobian[2][2] = 1.0;
     jacobian[2][3] = 0.0;
-    
-    jacobian[3][0] = 0.0;
-    jacobian[3][1] = 0.0;
-    jacobian[3][2] = -step;
+    jacobian[3][0] = -2 * coord[0] * coord[1] * step;
+    jacobian[3][1] = -step-coord[0]*coord[0]*step;
+    jacobian[3][2] = 0.0;
     jacobian[3][3] = 1.0;
-
-    // jacobian[2][0] = -step-coord[1]*coord[1]*step;
-    // jacobian[2][1] = -2*coord[0]*coord[1]*step;
-    // jacobian[2][2] = 1.0;
-    // jacobian[2][3] = 0.0;
-
-    // jacobian[3][0] = -2*coord[0]*coord[1]*step;
-    // jacobian[3][1] = -step-coord[0]*coord[0]*step;
-    // jacobian[3][2] = 0.0;
-    // jacobian[3][3] = 1.0;
 
     return jacobian;
 }
