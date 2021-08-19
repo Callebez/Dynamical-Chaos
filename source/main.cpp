@@ -178,7 +178,7 @@ int main()
     // std::vector<double> qpendulum = quantumPendulum(integrationAux,0.1);
     // std::cout<<qpendulum[0]<<", "<<qpendulum[1]<<", "<<qpendulum[2]<<", "<<qpendulum[3]<<"\n";
     double time[2] = {0.0,200.0};
-    std::vector<std::vector<double>> biff = biffurcation(lorenz, time, integrationAux, 0.1,2,3);
+    std::vector<std::vector<double>> biff = bifurcation(lorenz, time, integrationAux, 0.1,2,3);
 
     printBiffucationToFile(biff,"biffucationLorenzTesteRK45");
     plotBiffucation("biffucationLorenzTesteRK45","Lorenz System", " {/Symbol r}", " ");

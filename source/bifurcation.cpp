@@ -1,9 +1,9 @@
-#include "../include/biffurcation.hpp"
+#include "../include/bifurcation.hpp"
 #include "../include/printing.hpp"
 #include <thread>
 
 /* 
-    biffurcation:       Function for the evaluation of the biffurcations in the system
+    bifurcation:       Function for the evaluation of the biffurcations in the system
                         It works by varing the parameter and integrating the system of 
                         equations each time, and them searching the coordinate for points
                         where the function assumes a maxima ou a minima
@@ -17,7 +17,7 @@
     systemDimension     Dimension of the system of equations
 */
 
-std::vector<std::vector<double>> biffurcation(std::vector<double>(*function)(std::vector<double>, double),
+std::vector<std::vector<double>> bifurcation(std::vector<double>(*function)(std::vector<double>, double),
                                             double paramRange[2], std::vector<double> initialCond, 
                                             double paramStep, int coordBeingAnalysed, int systemDimension)
 {
