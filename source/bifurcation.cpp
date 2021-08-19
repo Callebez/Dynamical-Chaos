@@ -75,14 +75,14 @@ void searchMaxMin(std::vector<std::vector<double>>& biffurcation,std::vector<dou
         }
 }
 /*
-    printBiffucationToFile:         Prints the matrix, result of the function "biffurcation"
+    printBifucationToFile:         Prints the matrix, result of the function "bifurcation"
                                     into two files, one containing the maxima and another one 
                                     contaning the minima points as a result of the process of 
                                     biffurcation.
     fileName:                       Name of the file in which the matrix will be printed at
 
 */
-void printBiffucationToFile(std::vector<std::vector<double>>& matrix, std::string fileName)
+void printBifucationToFile(std::vector<std::vector<double>>& matrix, std::string fileName)
 {
     std::ofstream output1;
     std::ofstream output2;

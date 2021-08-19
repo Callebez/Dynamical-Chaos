@@ -1,6 +1,6 @@
 target 	:= main 
 OBJDIR  := ./build/ 
-objs 	:=  ./build/main.o ./build/lyapunov.o ./build/biffurcation.o ./build/plotting.o ./build/printing.o ./build/LinearAlgebra.o ./build/penduli.o ./build/penduli.o ./build/lorenz.o ./build/rungekutta4thSquare.o ./build/discretelyap.o
+objs 	:=  ./build/main.o ./build/doublePendulum.o ./build/lyapunov.o ./build/bifurcation.o ./build/plotting.o ./build/printing.o ./build/LinearAlgebra.o ./build/penduli.o ./build/penduli.o ./build/lorenz.o ./build/rungekutta4thSquare.o ./build/discretelyap.o
 CC 		:= g++
 CFLAGS 	:= -g -Wall -lm -pthread
 

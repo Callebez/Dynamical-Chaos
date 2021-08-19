@@ -6,8 +6,9 @@
 #include<future>
 #include<thread>
 // #include "../include/gnuplot-iostream.h"
+#include "../include/doublePendulum.hpp"
 #include "../include/plotting.hpp"
-#include "../include/biffurcation.hpp"
+#include "../include/bifurcation.hpp"
 #include "../include/penduli.hpp"
 #include "../include/lyapunov.hpp"
 #include "../include/lorenz.hpp"
@@ -113,17 +114,23 @@ void discrete(std::vector<double> integrationAux, double tau, int iteration, dou
 // }
 int main()
 {
-    std::vector<double> integrationAux = {1.0,1.0,1.0};
-    std::vector<double> integrationAux2 = {6.0,0.0,1.0,1.0};
+    std::vector<double> integrationAux = {3.14,0.0,0.0,0.0};
+    // std::vector<double> integrationAux2 = {6.0,0.0,1.0,1.0};
+
+
+    // std::vector<long double> lya = lyapunovSpectrum(lorenz,lorenzJacobian,integrationAux,1e-6, 100,0.1, 28.0);
+    // std::cout << " Lyapunov numbers: " << lya[0] << ", " << lya[1] << ", " << lya[2]<< "\n";
+    // std::cout << " Lyapunov exponents: " << exp(lya[0]) << ", " << exp(lya[1]) << ", " << exp(lya[2]) << "\n";
+      
     // double time[2] = {0,10.0};
-    // std::vector<std::vector<double>> rk45 (100000, std::vector<double>(3,0));
+    std::vector<std::vector<double>> rk45;
     // double time;
     std::vector<double> hs; 
     // std::vector<std::vector<double>>  biff = biffurcation(lorenz, time,integrationAux,0.1,0.1,0,3);
     // printBiffucationToFile(biff, "testplot");
     // plotBiffucation("testplot","lorenz test","rho", "");
-    // completeRungeKutta45(lorenz,integrationAux,100000, rk45, 28.0,0.001,3,1e-5, time, hs);
-    // printMatrixToFile(rk45,"testeRK45.dat");
+    completeRungeKutta45(doublePendulum,integrationAux,rk45, 10.0,0.001,4,1e-4, 1000, hs);
+    printMatrixToFile(rk45,"testeDP.dat");
     // plot3D("testeRK45","testeRK45", "lorenz Atrractor", "");
 
   //  printMatrix(rk45);
@@ -177,11 +184,11 @@ int main()
 
     // std::vector<double> qpendulum = quantumPendulum(integrationAux,0.1);
     // std::cout<<qpendulum[0]<<", "<<qpendulum[1]<<", "<<qpendulum[2]<<", "<<qpendulum[3]<<"\n";
-    double time[2] = {0.0,200.0};
-    std::vector<std::vector<double>> biff = bifurcation(lorenz, time, integrationAux, 0.1,2,3);
+    // double time[2] = {0.0,200.0};
+    // std::vector<std::vector<double>> biff = bifurcation(lorenz, time, integrationAux, 0.1,2,3);
 
-    printBiffucationToFile(biff,"biffucationLorenzTesteRK45");
-    plotBiffucation("biffucationLorenzTesteRK45","Lorenz System", " {/Symbol r}", " ");
+    // printBifucationToFile(biff,"biffucationLorenzTesteRK45");
+    // plotBifucation("biffucationLorenzTesteRK45","Lorenz System", " {/Symbol r}", " ");
     // plot2D("./outputs/images/biffucationLorenzNOVO","./outputs/txt/biffucationLorenzmax.dat", "max points"," plot ./outputs/txt/biffucationLorenzmin.dat w dots title \'min points\'  set title \'Biffurcation Diagram for the Lorenz system\'" );
 
     return 0;    

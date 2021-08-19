@@ -54,14 +54,14 @@ void plotAnimate2D(const char* fileName,const char* inputFile, int delay)
         fprintf(gnupipe,"\n");
     }
 }
-void plotBiffucation(const char* fileName, const char* systemName, const char* paramName, const char* optionalFlagsGnuPlot)
+void plotBifucation(const char* fileName, const char* systemName, const char* paramName, const char* optionalFlagsGnuPlot)
 {
 
     FILE *gnupipe = popen("gnuplot -persist", "w");
     if(gnupipe)
     {
         fprintf(gnupipe,"set terminal pngcairo enhanced size 1080,720 font \'Heveltica, 15\' \n");
-        fprintf(gnupipe,"set title \"Biffucation diagram in x  \\n(%s) \" font \'Helvetica, 16\' \n ",systemName);
+        fprintf(gnupipe,"set title \"Bifucation diagram in x  \\n(%s) \" font \'Helvetica, 16\' \n ",systemName);
         fprintf(gnupipe,"set xlabel \'%s\' enhanced font \'Helvetica, 14\' \n", paramName);
         fprintf(gnupipe,"set ylabel \' X\' font \"Helvetica, 14\"\n");
         fprintf(gnupipe,"set tics font \'Helvetica, 14\' \n" );
@@ -72,14 +72,14 @@ void plotBiffucation(const char* fileName, const char* systemName, const char* p
         fprintf(gnupipe,"plot \'./outputs/txt/%smax.dat\' using 1:2  pt 0 ps 0.75 title \'max points\',  \'./outputs/txt/%smin.dat\'  using 1:2  pt 0 ps 0.75 title \'min points\'  \n", fileName ,fileName);
     }
 }
-void plotBiffucationAndLyapunovExp(const char* biffFileName,const char* LyapunovFileName, const char* systemName, const char* paramName, const char* optionalFlagsGnuPlot)
+void plotBifucationAndLyapunovExp(const char* biffFileName,const char* LyapunovFileName, const char* systemName, const char* paramName, const char* optionalFlagsGnuPlot)
 {
 
     FILE *gnupipe = popen("gnuplot -persist", "w");
     if(gnupipe)
     {
         fprintf(gnupipe,"set terminal pngcairo enhanced size 1080,720 font \'Heveltica, 15\' \n");
-        fprintf(gnupipe,"set title \"Biffucation diagram in x and Lyapunov Exponents  \\n(%s) \" font \'Helvetica, 16\' \n ",systemName);
+        fprintf(gnupipe,"set title \"Bifucation diagram in x and Lyapunov Exponents  \\n(%s) \" font \'Helvetica, 16\' \n ",systemName);
         fprintf(gnupipe,"set xlabel \'%s\' enhanced font \'Helvetica, 14\' \n", paramName);
         fprintf(gnupipe,"set ylabel \' X\' font \"Helvetica, 14\"\n");
         fprintf(gnupipe,"set tics font \'Helvetica, 14\' \n" );
