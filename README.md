@@ -3,7 +3,7 @@
 
 Dynamical Chos is a project developed with the support of CNPq, made as a one-year project for PIBIC-UnB (research internship at the University of Brasília) carried out by Callebe Reis and Shohei Sato under the guidance of Professor Olavo Leopoldino da Silva Filho.
 
-The main objective of the project is to provide a set of tools to analyze autonomous dynamic systems and the presence of chaos. Having tools for numeric integration of ordinary differential equations (RK45) and (RK4), finding the Lyapunov exponent spectrum, creating bifurcation diagrams and plotting 2D and 3D functions using a gnuplot pipe, the project achieves its goals, being able to provide valuable information about the behavior of various dynamic systems.
+The main goal of the project is to provide a set of tools to analyze autonomous dynamic systems and the presence of chaos. Having tools for numeric integration of ordinary differential equations (RK45) and (RK4), finding the Lyapunov exponent spectrum, creating bifurcation diagrams and plotting 2D and 3D functions using a gnuplot pipe, the project achieves its goals, being able to provide valuable information about the behavior of various dynamic systems.
 
 ## Getting started 
 The only dependencies are [gnuplot](http://www.gnuplot.info/) and [make](https://www.gnu.org/software/make/). 
