@@ -113,7 +113,7 @@ void discrete(std::vector<double> integrationAux, double tau, int iteration, dou
 // }
 int main()
 {
-    std::vector<double> integrationAux1 = {6.0,0.0,1.0,1.0};
+    std::vector<double> integrationAux = {1.0,1.0,1.0};
     std::vector<double> integrationAux2 = {6.0,0.0,1.0,1.0};
     // double time[2] = {0,10.0};
     // std::vector<std::vector<double>> rk45 (100000, std::vector<double>(3,0));
@@ -143,17 +143,17 @@ int main()
     printMatrixToFile(A,"arquivoTesteLyapunovVsRho.dat");
     */
     //A = discreteClassLyap(integrationAux, 1, 0.1, 500,1);
-    double tau = 1e-3;
-    int iteration = 5e4;
-    double k = 1;
-    double gamma = 0;
-    std::vector<long double> lya[2];
-    for (int i = 0; i < 20;i++)
-    {
-      std::thread task1(runge, integrationAux1, tau, lya[0],gamma);
-      std::thread task2(discrete, integrationAux2, tau, iteration, gamma, k, lya[1]);
-      task1.join();
-      task2.join();
+    // double tau = 1e-3;
+    // int iteration = 5e4;
+    // double k = 1;
+    // double gamma = 0;
+    // std::vector<long double> lya[2];
+    // for (int i = 0; i < 20;i++)
+    // {
+      // std::thread task1(runge, integrationAux1, tau, lya[0],gamma);
+      // std::thread task2(discrete, integrationAux2, tau, iteration, gamma, k, lya[1]);
+      // task1.join();
+      // task2.join();
       /*std::cout << "For gamma = " << gamma << std::endl;
       lya[0] = lyapunovSpectrum(classicalPendulum, classicalPendulumJacobian, integrationAux1, 1e-6, 100, tau, 1e-4);
       std::cout << std::endl;
@@ -169,18 +169,20 @@ int main()
       std::cout << std::endl;
       std::cout << "Discrete lyapunov numbers: " << lya[1][0] << ", " << lya[1][1] << ", " << lya[1][2] << "," << lya[1][3] << "\n";
       std::cout << "Discrete lyapunov exponents: " << exp(lya[1][0]) << ", " << exp(lya[1][1]) << ", " << exp(lya[1][2]) << ", " << exp(lya[1][3]) << "\n";
-      */gamma += 0.1;
-    }
+      */
+    //  gamma += 0.1;
+    // }
 
     // std::cout<<"their sum : "<< lya[0]+lya[1]+lya[2]+lya[3];
 
     // std::vector<double> qpendulum = quantumPendulum(integrationAux,0.1);
     // std::cout<<qpendulum[0]<<", "<<qpendulum[1]<<", "<<qpendulum[2]<<", "<<qpendulum[3]<<"\n";
-    // std::vector<std::vector<double>> biff = biffurcation(lorenz, time, integrationAux, 0.1,0.001,2,3);
+    double time[2] = {0.0,200.0};
+    std::vector<std::vector<double>> biff = biffurcation(lorenz, time, integrationAux, 0.1,2,3);
 
-    // printBiffucationToFile(biff,"biffucationLorenzTesteRK45");
-    // plotBiffucation("biffucationLorenzTesteRK45","Lorenz System", " {/Symbol r}", " ");
-    // plot2D("./outputs/images/biffucationLorenz","./outputs/txt/biffucationLorenzmax.dat", "max points"," plot ./outputs/txt/biffucationLorenzmin.dat w dots title \'min points\'  set title \'Biffurcation Diagram for the Lorenz system\'" );
+    printBiffucationToFile(biff,"biffucationLorenzTesteRK45");
+    plotBiffucation("biffucationLorenzTesteRK45","Lorenz System", " {/Symbol r}", " ");
+    // plot2D("./outputs/images/biffucationLorenzNOVO","./outputs/txt/biffucationLorenzmax.dat", "max points"," plot ./outputs/txt/biffucationLorenzmin.dat w dots title \'min points\'  set title \'Biffurcation Diagram for the Lorenz system\'" );
 
     return 0;    
 }
