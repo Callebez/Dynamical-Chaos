@@ -156,12 +156,12 @@ int main()
 
     std::vector<double> max (integrationAux1.size(), 0);
     std::vector<double> min (integrationAux1.size(), 0);
-    std::ofstream lyapexp("outputs/txt/Gamma-Lyapunov-exponents3.dat");
-    std::ofstream lyapnum("outputs/txt/Gamma-Lyapunov-numbers3.dat");
-    std::ofstream lyapsum("outputs/txt/Gamma-Lyapunov-sum3.dat");
+    std::ofstream lyapexp("outputs/txt/Gamma-Lyapunov-exponents4.dat");
+    std::ofstream lyapnum("outputs/txt/Gamma-Lyapunov-numbers4.dat");
+    std::ofstream lyapsum("outputs/txt/Gamma-Lyapunov-sum4.dat");
 
     auto start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < 51;i++)
+    /*for (int i = 0; i < 51;i++)
     {
       std::thread task1(plt, integrationAux1, tau, iteration, gamma, k, i);
       std::thread task2(plt, integrationAux1, tau, iteration, gamma, k, i+50);
@@ -170,7 +170,7 @@ int main()
       task2.join();
       task3.join();
       gamma += 0.01;
-    }
+    }*/
     for (int i = 0; i < 151; i++)
     {
       std::cout << gamma << std::endl;
@@ -182,7 +182,7 @@ int main()
       //std::thread task3(runge, integrationAux1, tau, gamma, std::ref(lyap[2]));
       //std::thread task4(runge, integrationAux1, tau, gamma, std::ref(lyap[3]));
       //std::thread task5(runge, integrationAux1, tau, gamma, std::ref(lyap[4]));
-      for (int j = 0; j < 20; j++)
+      for (int j = 0; j < 10; j++)
       {
         std::thread task1(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[0]));
         std::thread task2(discrete, integrationAux2, tau, iteration, gamma, k, std::ref(lyap[1]));
@@ -207,7 +207,7 @@ int main()
         }
         for (uint k = 0; k < integrationAux1.size(); k++)
         {
-          lyapunovexponent[k] /= 1000;
+          lyapunovexponent[k] /= 50; //Tomar cuidado para mudar o dividendo para a quantidade de contas realizadas
         }
       }
       for (uint k = 0; k < integrationAux1.size(); k++)
